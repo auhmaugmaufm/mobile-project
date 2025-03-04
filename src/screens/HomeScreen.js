@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import CustomButtonLong from '../components/CustomButton'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
         <View style={styles.ViewStyle}>
             <View style={styles.TextContainer}>
@@ -17,8 +17,13 @@ const HomeScreen = () => {
                 <Text style={styles.TextSub}>Everything start from here!</Text>
             </View>
             <View style={styles.ButtonContainer}>
-                <CustomButtonLong title='Log In' backgroundColor='#FEC941' color='black' />
-                <CustomButtonLong title='Sign Up' backgroundColor='#D4E6D3' color='black' />
+                <View style={styles.buttonSize}>
+                  <CustomButtonLong title='Log In' backgroundColor='#FEC941' color='black' onPress={()=> navigation.navigate("Login")}/>  
+                </View>
+                <View style={styles.buttonSize}>
+                   <CustomButtonLong title='Sign Up' backgroundColor='#D4E6D3' color='black' onPress={()=> navigation.navigate("SignUp")} /> 
+                </View>
+                
             </View>
         </View>
     )
@@ -64,6 +69,11 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 'bold',
         color: 'white'
+    },
+    buttonSize:{
+        width: '80%',
+        height: '30%',
+        marginBottom: 10,
     }
 
 })

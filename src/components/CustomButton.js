@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     TextLong: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 36,
+        fontSize: 33,
         fontWeight: 'bold'
     },
     ButtonLong: {
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 25,
-        height: '27%',
+        height: '100%',
         marginTop: 25,
-        width: '77%',
+        width: '100%',
     }
 })
 
