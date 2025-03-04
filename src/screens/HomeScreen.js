@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import CustomButtonLong from '../components/CustomButton'
+import CustomButton from '../components/CustomButton'
 
 const HomeScreen = ({navigation}) => {
     return (
@@ -18,10 +18,10 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={styles.ButtonContainer}>
                 <View style={styles.buttonSize}>
-                  <CustomButtonLong title='Log In' backgroundColor='#FEC941' color='black' onPress={()=> navigation.navigate("Login")}/>  
+                  <CustomButton title='Log In' backgroundColor='#FEC941' color='black' onPress={()=> navigation.navigate("Login")}/>  
                 </View>
                 <View style={styles.buttonSize}>
-                   <CustomButtonLong title='Sign Up' backgroundColor='#D4E6D3' color='black' onPress={()=> navigation.navigate("SignUp")} /> 
+                   <CustomButton title='Sign Up' backgroundColor='#D4E6D3' color='black' onPress={()=> navigation.navigate("SignUp")} /> 
                 </View>
                 
             </View>

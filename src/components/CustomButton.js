@@ -2,35 +2,25 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 
-const CustomButtonLong = ({ title, onPress, backgroundColor, color }) => {
+const CustomButton = ({ title, onPress, backgroundColor, color }) => {
     return (
         <TouchableOpacity
-            style={[styles.ButtonLong, { backgroundColor }]}
+            style={[styles.Button, { backgroundColor }]}
             onPress={onPress}>
-            <Text style={[styles.TextLong, { color }]}>{title}</Text>
+            <Text style={[styles.Text, { color }]}>{title}</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    ButtonBox: {
-        width: 85,
-        height: 60,
-        borderRadius: 50,
-    },
-    TextBox: {
-        textAlign: 'center',
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-    TextLong: {
+
+    Text: {
         textAlign: 'center',
         color: 'white',
         fontSize: 33,
         fontWeight: 'bold'
     },
-    ButtonLong: {
+    Button: {
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -41,4 +31,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CustomButtonLong;
+export default CustomButton;

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import CustomInput from "../components/CustomInput";
-import CustomButtonLong from "../components/CustomButton";
+import CustomButton from "../components/CustomButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const SignUp = ({navigation}) => {
@@ -23,7 +23,7 @@ const SignUp = ({navigation}) => {
           <CustomInput width={280} text="Confirm Password" />
           <CustomInput width={280} text="Phone Number"/>
           <View style={styles.buttonSize}>
-            <CustomButtonLong title='Sign Up' backgroundColor='#FEC941' color='white' />
+            <CustomButton title='Sign Up' backgroundColor='#FEC941' color='white' />
           </View>
       </View>
       <View style={{flexDirection:'row',marginTop:10}}>
