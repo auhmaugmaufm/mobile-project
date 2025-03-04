@@ -9,7 +9,11 @@ const CustomCard = ({ props }) => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text>{start}</Text>
                 <Text>{time}</Text>
+            </View>
+            <View>
                 <Text>{end}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text>{type}</Text>
                 <Text>{status}</Text>
             </View>
@@ -18,15 +22,16 @@ const CustomCard = ({ props }) => {
 }
 const styles = StyleSheet.create({
     Container: {
-        //alignItems: 'center',
-        width: '90%',
-        height: '60%',
-        marginTop: 15,
-        borderWidth: 2,
-        borderColor: "black",
         backgroundColor: "white",
-        marginLeft: '5%',
+        padding: 15,
         borderRadius: 10,
+        marginBottom: 10,
+        margin: 5,
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 10,
+        elevation: 4,
     },
 })
 

@@ -29,55 +29,7 @@ const BookingScreen = () => {
             type: 'mini-bus',
             status: 'thorrrrrr'
         },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
+        
     ]
 
     return (
