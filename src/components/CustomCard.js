@@ -7,19 +7,20 @@ const CustomCard = ({ props }) => {
     return (
         <View style={styles.Container}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text>{start}</Text>
-                <Text>{time}</Text>
+                <Text style={styles.Text}>{start}</Text>
+                <Text style={styles.Text}>{time}</Text>
             </View>
             <View>
-                <Text>{end}</Text>
+                <Text style={styles.Text}>{end}</Text>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text>{type}</Text>
-                <Text>{status}</Text>
+                <Text style={styles.Text}>{type}</Text>
+                <Text style={styles.Text}>{status}</Text>
             </View>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     Container: {
         backgroundColor: "white",
@@ -32,7 +33,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 10,
         elevation: 4,
+        margin: 15,
+        padding: 25
     },
+    Text: {
+        fontWeight:'bold',
+        fontSize: 20,
+    }
 })
 
 export default CustomCard
