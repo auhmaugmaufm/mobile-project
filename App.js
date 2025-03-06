@@ -5,16 +5,24 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import SignUp from "./src/screens/SignUp";
 import Login from "./src/screens/Login";
+<<<<<<< Updated upstream
 import BookingHistoryScreen from "./src/screens/BookingHistoryScreen";
 import BookingScreen from "./src/screens/BookingScreen";
 import EditScreen from "./src/screens/EditScreen";
+=======
+import SelectScreen from "./src/screens/SelectScreen";
+>>>>>>> Stashed changes
 
 const Stack = createStackNavigator()
 
 const App = () => {
     return (
         <NavigationContainer>
+<<<<<<< Updated upstream
             <Stack.Navigator initialRouteName="Booking">
+=======
+            <Stack.Navigator initialRouteName="Select">
+>>>>>>> Stashed changes
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
@@ -31,6 +39,7 @@ const App = () => {
                     options={{ headerMode: 'none' }}
                 />
                 <Stack.Screen
+<<<<<<< Updated upstream
                     name="Booking"
                     component={BookingScreen}
                     options={{ headerMode: 'none' }}
@@ -44,6 +53,11 @@ const App = () => {
                     name="Edit"
                     component={EditScreen}
                     options={{ headerMode: 'none' }}
+=======
+                    name="Select"
+                    component={SelectScreen}
+                    // options={{ headerMode: 'none' }}
+>>>>>>> Stashed changes
                 />
             </Stack.Navigator>
         </NavigationContainer>
