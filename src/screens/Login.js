@@ -1,40 +1,40 @@
 import React from "react";
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomInput from "../components/CustomInput";
 import CustomButtonLong from "../components/CustomButton";
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   return (
     <View style={styles.ViewStyle}>
       <View style={styles.TextContainer}>
-        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingRight:'10%'}}>
-        <Text style={styles.TextHead}>Log in</Text>
-        <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
-            <MaterialIcons name="home" size={40} color="white"/>
-        </TouchableOpacity>
-        
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10%' }}>
+          <Text style={styles.TextHead}>Log in</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <MaterialIcons name="home" size={40} color="white" />
+          </TouchableOpacity>
+
         </View>
-       
+
         <Text style={styles.TextSub}>Enter your credential to continue</Text>
       </View>
 
       <View style={styles.container}>
-          <CustomInput width= {280} text="Username" />
-          <CustomInput width={280} text="Password" />
-          <View style={styles.buttonSize}>
-            <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' />
-          </View>
+        <CustomInput width={280} text="Username" />
+        <CustomInput width={280} text="Password" />
+        <View style={styles.buttonSize}>
+          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' />
+        </View>
       </View>
-      <View style={{flexDirection:'row',marginTop:10}}>
-        <Text style={styles.already}>Don't have an account ?</Text>
-        <TouchableOpacity onPress={()=> navigation.navigate("SignUp")}>
-          <Text style={styles.already}>Sign Up Now</Text>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <Text style={styles.TextFooter}>Don't have an account ?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Sign Up Now</Text>
         </TouchableOpacity>
       </View>
-        
-     
-       
+
+
+
 
     </View>
   );
@@ -68,20 +68,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEEEEE",
     marginLeft: "10%",
     borderRadius: 18,
-    padding :20,
+    padding: 20,
     // marginTop: 5,
   },
-  buttonSize:{
-    width:190,
+  buttonSize: {
+    width: 190,
     height: 63,
   },
-  already:{
-    color:'white',
+  TextFooter: {
+    color: 'white',
     marginLeft: '10%'
   },
 
-  
-  
+
+
 });
 
 export default Login;
