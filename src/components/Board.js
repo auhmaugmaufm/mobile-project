@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-const Board = ({ height , children }) => {
+const Board = ({ height, children }) => {
     return (
         <View style={[styles.Container, { height }]}>
             {children}
