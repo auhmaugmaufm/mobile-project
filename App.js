@@ -7,13 +7,15 @@ import SignUp from "./src/screens/SignUp";
 import Login from "./src/screens/Login";
 import BookingHistoryScreen from "./src/screens/BookingHistoryScreen";
 import BookingScreen from "./src/screens/BookingScreen";
+import SelectScreen from "./src/screens/SelectScreen";
+import Payment from "./src/screens/Paymentscreen";
 
 const Stack = createStackNavigator()
 
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Booking">
+            <Stack.Navigator initialRouteName="Select">
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
@@ -33,6 +35,16 @@ const App = () => {
                     name="Booking"
                     component={BookingScreen}
                     options={{ headerMode: 'none' }}
+                />
+                <Stack.Screen
+                    name="Select"
+                    component={SelectScreen}
+                    options={{ headerMode: 'none' }}
+                />
+                <Stack.Screen
+                    name="Payment"
+                    component={Payment}
+                    // options={{ headerMode: 'none' }}
                 />
                 <Stack.Screen
                     name="BookingHistory"
