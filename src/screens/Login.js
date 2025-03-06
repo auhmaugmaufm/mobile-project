@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
         <CustomInput width={280} text="Username" />
         <CustomInput width={280} text="Password" />
         <View style={styles.buttonSize}>
-          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' />
+          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={()=>navigation.navigate('Navbar' , { screen: 'Booking' })} />
         </View>
       </View>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>

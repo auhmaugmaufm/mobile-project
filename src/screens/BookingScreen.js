@@ -65,8 +65,8 @@ const BookingScreen = ({ navigation }) => {
             </Board>
             <View style={{ height: '5%' }}></View>
             <Board height="60%" key='flatlist'>
-                <Van />
-                {/* <FlatList
+
+                <FlatList
                     data={board}
                     keyExtractor={(item) => item.name}
                     renderItem={({ item }) => {
@@ -76,7 +76,7 @@ const BookingScreen = ({ navigation }) => {
                             </TouchableOpacity>
                         )
                     }}
-                /> */}
+                />
             </Board>
 
         </View>

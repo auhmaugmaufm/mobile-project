@@ -2,43 +2,40 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import HomeScreen from "./src/screens/HomeScreen";
 import SignUp from "./src/screens/SignUp";
 import BookingHistoryScreen from "./src/screens/BookingHistoryScreen";
 import BookingScreen from "./src/screens/BookingScreen";
 import EditScreen from "./src/screens/EditScreen";
+import Login from './src/screens/Login';
 
 // สร้าง Stack Navigator และ Tab Navigator
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // สร้าง Stack สำหรับหน้าหลัก (Home) และ SignUp
-const HomeTabs = () => {
+const Tabs = () => {
     return (
         <Tab.Navigator
-            initialRouteName="MainHome" // Renamed to MainHome
+            // Renamed to MainHome
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen
-                name="MainHome" // Unique name
-                component={HomeScreen}
-                options={{ headerShown: false }}
+                name="Booking"
+                component={BookingScreen}
+                options={{ title: 'Booking', headerShown: false }}
             />
             <Tab.Screen
                 name="BookingHistory"
                 component={BookingHistoryScreen}
-                options={{ headerShown: false }}
+                options={{ title: 'Booking History', headerShown: false }}
             />
             <Tab.Screen
-                name="Booking"
-                component={BookingScreen}
-                options={{ headerShown: false }}
-            />
-            <Tab.Screen
-                name="Edit"
+                name="Setting"
                 component={EditScreen}
-                options={{ headerShown: false }}
+                options={{ title: 'Setting', headerShown: false }}
             />
             {/* Add other tabs here */}
         </Tab.Navigator>
@@ -48,9 +45,11 @@ const HomeTabs = () => {
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Home" component={HomeTabs} options={{ headerShown: false }} />
+            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, }}>
+                <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
