@@ -4,44 +4,46 @@ import CustomInput from '../components/CustomInput'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
 import Board from '../components/Board';
+import Seat from '../components/Seat';
+import Van from '../components/Van';
 
 
 const BookingScreen = ({ navigation }) => {
 
     const board = [
         {
-            start: 'kps',
-            end: 'cha',
+            start: 'Kampheangsean',
+            end: 'Chacheongsao',
             time: '12:12 AM',
-            type: 'mini-bus',
+            type: 'Mini-bus',
+            status: 'Closed'
+        },
+        {
+            start: 'Kampheangsean',
+            end: 'Ratchaburi',
+            time: '12:12 AM',
+            type: 'Van',
             status: 'On booking'
         },
         {
-            start: 'kps',
-            end: 'cha',
+            start: 'Kampheangsean',
+            end: 'Chacheongsao',
             time: '12:12 AM',
-            type: 'mini-bus',
+            type: 'Mini-bus',
+            status: 'Closed'
+        },
+        {
+            start: 'Kampheangsean',
+            end: 'Ratchaburi',
+            time: '12:12 AM',
+            type: 'Mini-bus',
             status: 'On booking'
         },
         {
-            start: 'kps',
-            end: 'cha',
+            start: 'Kampheangsean',
+            end: 'Chacheongsao',
             time: '12:12 AM',
-            type: 'mini-bus',
-            status: 'thorrrrrr'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12 AM',
-            type: 'mini-bus',
-            status: 'On booking'
-        },
-        {
-            start: 'kps',
-            end: 'cha',
-            time: '12:12 AM',
-            type: 'mini-bus',
+            type: 'Van',
             status: 'On booking'
         },
 
@@ -63,7 +65,8 @@ const BookingScreen = ({ navigation }) => {
             </Board>
             <View style={{ height: '5%' }}></View>
             <Board height="60%" key='flatlist'>
-                <FlatList
+                <Van />
+                {/* <FlatList
                     data={board}
                     keyExtractor={(item) => item.name}
                     renderItem={({ item }) => {
@@ -73,7 +76,7 @@ const BookingScreen = ({ navigation }) => {
                             </TouchableOpacity>
                         )
                     }}
-                />
+                /> */}
             </Board>
 
         </View>

@@ -46,10 +46,15 @@ const styles = StyleSheet.create({
     StatusStyle: {
         fontWeight: 'bold',
         fontSize: 15,
+       // justifyContent: 'center',
+        //alignItems: 'center'
     },
     StatusContainer: {
         padding: 5,
-        borderRadius: 15
+        borderRadius: 15,
+        width: 100,
+        height: 30,
+        alignItems: 'center'
     }
 })
 
