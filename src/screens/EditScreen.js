@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from 'react-native';
+
 import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton';
 import Board from "../components/Board";
@@ -14,7 +15,8 @@ const EditScreen = () => {
                     <CustomInput
                         width={280}
                         text="Edit Phone Number"
-                    />
+                        keyboardType='numeric'
+                        />
                     <CustomInput
                         width={280}
                         text="Password"

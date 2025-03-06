@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-const CustomInput = ({ width, text, value, onChangeText, keyboardType }) => {
+const CustomInput = ({width, text, value, onChangeText, keyboardType }) => {
     return (
         <View>
             <TextInput style={[styles.input, { width }]} placeholderTextColor="white" placeholder={text} value={value} onChangeText={onChangeText} keyboardType={keyboardType}/>
