@@ -7,13 +7,14 @@ import SignUp from "./src/screens/SignUp";
 import Login from "./src/screens/Login";
 import BookingHistoryScreen from "./src/screens/BookingHistoryScreen";
 import BookingScreen from "./src/screens/BookingScreen";
+import EditScreen from "./src/screens/EditScreen";
 
 const Stack = createStackNavigator()
 
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Booking">
+            <Stack.Navigator initialRouteName="Edit">
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
@@ -39,7 +40,11 @@ const App = () => {
                     component={BookingHistoryScreen}
                     options={{ headerMode: 'none' }}
                 />
-
+                <Stack.Screen
+                    name="Edit"
+                    component={EditScreen}
+                    options={{ headerMode: 'none' }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )
