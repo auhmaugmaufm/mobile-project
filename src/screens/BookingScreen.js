@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, FlatList, ScrollView } from 'react-
 import CustomInput from '../components/CustomInput'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
+import Board from '../components/Board';
 
 
 const BookingScreen = () => {
@@ -11,54 +12,68 @@ const BookingScreen = () => {
         {
             start: 'kps',
             end: 'cha',
-            time: '12:12',
+            time: '12:12 AM',
             type: 'mini-bus',
             status: 'thorrrrrr'
         },
         {
             start: 'kps',
             end: 'cha',
-            time: '12:12',
+            time: '12:12 AM',
             type: 'mini-bus',
             status: 'thorrrrrr'
         },
         {
             start: 'kps',
             end: 'cha',
-            time: '12:12',
+            time: '12:12 AM',
             type: 'mini-bus',
             status: 'thorrrrrr'
         },
-        
+        {
+            start: 'kps',
+            end: 'cha',
+            time: '12:12 AM',
+            type: 'mini-bus',
+            status: 'thorrrrrr'
+        },
+        {
+            start: 'kps',
+            end: 'cha',
+            time: '12:12 AM',
+            type: 'mini-bus',
+            status: 'thorrrrrr'
+        },
+
     ]
 
     return (
-            <View style={styles.ViewStyle}>
-                <View style={styles.InputContainer}>
-                    <View style={styles.DateInput}>
-                        <CustomInput width={280} text='Date' />
-                        <TouchableOpacity style={{ position: 'absolute', right: 8, top: 17 }}>
-                            <MaterialIcons name="calendar-month" size={40} color="white" />
-                        </TouchableOpacity>
-                    </View>
-                    <CustomInput width={280} text='Choose Start' />
-                    <CustomInput width={280} text='Choose Destination' />
+        <View style={styles.ViewStyle}>
+            <View style={styles.InputContainer}>
+                <View style={styles.DateInput}>
+                    <CustomInput width={280} text='Date' />
+                    <TouchableOpacity style={{ position: 'absolute', right: 8, top: 17 }}>
+                        <MaterialIcons name="calendar-month" size={40} color="white" />
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.BoardContainer}>
-                    <FlatList
-                        data={board}
-                        keyExtractor={(item) => item.name}
-                        renderItem={({ item }) => {
-                            return (
-                                <TouchableOpacity>
-                                    <CustomCard props={item} />
-                                </TouchableOpacity>
-                            )
-                        }}
-                    />
-                </View>
-
+                <CustomInput width={280} text='Choose Start' />
+                <CustomInput width={280} text='Choose Destination' />
             </View>
+            <Board height="60%" >
+                <FlatList
+                    data={board}
+                    keyExtractor={(item) => item.name}
+                    renderItem={({ item }) => {
+                        return (
+                            <TouchableOpacity>
+                                <CustomCard props={item} />
+                            </TouchableOpacity>
+                        )
+                    }}
+                />
+            </Board>
+
+        </View>
     )
 }
 
