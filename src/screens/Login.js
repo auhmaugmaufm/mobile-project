@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
 
       <View style={styles.container}>
         <CustomInput width={280} text="Username" />
-        <CustomInput width={280} text="Password" />
+        <CustomInput width={280} text="Password"secureTextEntry={true}/>
         <View style={styles.buttonSize}>
           <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={()=>navigation.navigate('Navbar' , { screen: 'Booking' })} />
         </View>
