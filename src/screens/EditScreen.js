@@ -1,22 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton';
 import Board from "../components/Board";
 
-const EditScreen = () => {
+const EditScreen = ({ navigation }) => {
     return (
-
         <View style={styles.ViewStyle}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("SettingMain")}>
+                    <MaterialIcons name="arrow-back" size={40} color="white" />
+                </TouchableOpacity>
+                <Text style={styles.TextHeader}>Setting</Text>
+            </View>
             <Board height="50%">
-                <Text style={styles.TextStyle}>EDIT</Text>
+                <Text style={styles.TextStyle}>Edit</Text>
                 <View style={styles.container}>
                     <CustomInput
                         width={280}
                         text="Edit Phone Number"
                         keyboardType='numeric'
-                        />
+                    />
                     <CustomInput
                         width={280}
                         text="Password"
@@ -40,7 +46,7 @@ const EditScreen = () => {
 
 const styles = StyleSheet.create({
     ViewStyle: {
-        paddingTop: 150,
+        paddingTop: 60,
         flex: 1,
         backgroundColor: "#1E535F",
         // alignItems: 'center'
@@ -60,10 +66,16 @@ const styles = StyleSheet.create({
         marginTop: "3%"
     },
     buttonSize: {
-        marginTop:"auto",
+        marginTop: "auto",
         width: 190,
         height: 63,
     },
+    TextHeader: {
+        fontWeight: 'bold',
+        fontSize: 34,
+        color: 'white',
+        marginLeft: 15
+    }
 })
 
 export default EditScreen;

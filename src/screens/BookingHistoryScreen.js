@@ -5,12 +5,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const BookingHistoryScreen = ({navigation}) => {
     return (
         <View style={styles.ViewStyle}>
-            <View style={{flexDirection:'row', alignItems:'center' }}>
-                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                    <MaterialIcons name="arrow-back" size={40} color="white" />
-                </TouchableOpacity>
-                <Text style={styles.TextHeader}>Booking History</Text>
-            </View>
+            <Text style={styles.TextHeader}>Booking History</Text>
             <FlatList
                     // data={filteredGoods}
                     // keyExtractor={(item) => item.id.toString()}
@@ -35,8 +30,9 @@ const styles = StyleSheet.create({
     TextHeader: {
         fontWeight: 'bold',
         fontSize: 34,
-        color: 'white'
+        color: 'white',
+        marginLeft: 55
     }
 })
 
-export default BookingHistoryScreen
+export default BookingHistoryScreen;
