@@ -100,7 +100,7 @@ const SignUp = ({ navigation }) => {
           text="Password"
           onChangeText={(value) => handdleChange('password', value)}
           onBlur={() => validateField('password', password)}
-          secure={true}
+          secureTextEntry={true}
         />
         {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
         <CustomInput
@@ -108,7 +108,7 @@ const SignUp = ({ navigation }) => {
           text="Confirm Password"
           onChangeText={(value) => handdleChange('confirmPassword', value)}
           onBlur={() => validateField('confirmPassword', confirmPassword)}
-          secure={true}
+          secureTextEntry={true}
         />
         {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
         <CustomInput
