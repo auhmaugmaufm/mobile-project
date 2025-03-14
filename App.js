@@ -10,6 +10,10 @@ import BookingHistoryScreen from "./src/screens/BookingHistoryScreen";
 import BookingScreen from "./src/screens/BookingScreen";
 import EditScreen from "./src/screens/EditScreen";
 import Login from './src/screens/Login';
+import PaymentScreen from './src/screens/Paymentscreen';
+import SelectScreen from './src/screens/SelectScreen';
+
+
 
 // สร้าง Stack Navigator และ Tab Navigator
 const Stack = createNativeStackNavigator();
@@ -50,6 +54,9 @@ const App = () => {
                 <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="BookingHistory" component={BookingHistoryScreen} options={{ headerShown: false }} />
+                {/* <Stack.Screen name="Select" component={SelectScreen} options={{ headerShown: false }} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     );

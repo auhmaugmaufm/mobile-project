@@ -11,7 +11,7 @@ const BookingHistoryScreen = ({navigation}) => {
                 </TouchableOpacity>
                 <Text style={styles.TextHeader}>Booking History</Text>
             </View>
-            <FlatList
+            {/* <FlatList
                     // data={filteredGoods}
                     // keyExtractor={(item) => item.id.toString()}
                     // renderItem={({ item }) => {
@@ -21,7 +21,9 @@ const BookingHistoryScreen = ({navigation}) => {
                     //         </TouchableOpacity>
                     //     )
                     // }}
-                />
+                /> */}
+
+              
         </View>
     )
 }
