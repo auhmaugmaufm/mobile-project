@@ -1,30 +1,31 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity , Alert} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { signUp } from "../services/api";
 
 const SignUp = ({ navigation }) => {
 
-  const [username, setUsername] = useState('')
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmpassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [phoneNumber, setPhonenubmer] = useState('')
-  const [errors, setErrors] = useState({ username: '', password: '', confirmPassword: '', phoneNumber: '' })
+  const [errors, setErrors] = useState({ name: '', password: '', confirmPassword: '', phoneNumber: '' })
 
 
   const handdleChange = (field, value) => {
     switch (field) {
-      case 'username':
-        setUsername(value)
-        setErrors((preErrorss) => ({ ...preErrorss, username: '' }))
+      case 'name':
+        setName(value)
+        setErrors((preErrorss) => ({ ...preErrorss, name: '' }))
         break;
       case 'password':
         setPassword(value)
         setErrors((preErrorss) => ({ ...preErrorss, password: '' }))
         break;
       case 'confirmPassword':
-        setConfirmpassword(value)
+        setConfirmPassword(value)
         setErrors((preErrorss) => ({ ...preErrorss, confirmPassword: '' }))
         break;
       case 'phoneNumber':
@@ -40,7 +41,7 @@ const SignUp = ({ navigation }) => {
       error = 'This field is required.'
     } else {
       if (field === 'phoneNumber' && value.length !== 10) {
-        error = 'Invalid PhoneNubmer format'
+        error = 'Invalid PhoneNumberaum format'
       } else if (field === 'password' && value.length < 8) {
         error = 'Invalid Password format'
       } else if (field === 'confirmPassword' && value !== password) {
@@ -52,27 +53,37 @@ const SignUp = ({ navigation }) => {
   }
 
   const checkSubmit = () => {
-    const usernameError = validateField('username', username)
+    const NameError = validateField('name', name)
     const PhoneNumberError = validateField('phoneNumber', phoneNumber)
     const passwordError = validateField('password', password)
     const confirm_passwordError = validateField('confirmPassword', confirmPassword)
 
-    if (!usernameError && !PhoneNumberError && !passwordError && !confirm_passwordError) {
+    if (!NameError && !PhoneNumberError && !passwordError && !confirm_passwordError) {
+      handleSignUp();
+    }
+
+  }
+
+  const handleSignUp = async () => {
+    try {
+      await signUp(name, password, phoneNumber);
       Alert.alert('Registration result: ', 'SUCCESS', [
         {
           text: 'OK',
           onPress: () => {
-            setUsername('')
+            setName('')
             setPassword('')
-            setConfirmpassword('')
+            setConfirmPassword('')
             setErrors({ username: '', password: '', confirmPassword: '', phoneNumber: '' })
             navigation.navigate("Login")
           }
         }
       ])
+    } catch (error) {
+      Alert.alert('Registration result: ', error.message)
     }
-
   }
+
 
   return (
     <View style={styles.ViewStyle}>
@@ -89,12 +100,12 @@ const SignUp = ({ navigation }) => {
       <View style={styles.container}>
         <CustomInput
           width={280}
-          text="Username"
-          onChangeText={(value) => handdleChange('username', value)}
-          onBlur={() => validateField('username', username)}
+          text="Name"
+          onChangeText={(value) => handdleChange('name', value)}
+          onBlur={() => validateField('name', name)}
           style={styles.inputContainer}
         />
-        {errors.username ? <Text style={styles.errorText}>{errors.username}</Text> : null}
+        {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
         <CustomInput
           width={280}
           text="Password"
@@ -180,12 +191,12 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 12,
-    marginTop:2,
+    marginTop: 2,
     // position: 'absolute'
     alignSelf: 'flex-start',
     marginLeft: 5,
   },
-  
+
 
 
 

@@ -1,10 +1,31 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomInput from "../components/CustomInput";
 import CustomButtonLong from "../components/CustomButton";
+import { logIn } from "../services/api";
 
 const Login = ({ navigation }) => {
+
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      await logIn(phoneNumber, password)
+      Alert.alert('LogIn result: ', 'SUCCESS', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('Navbar', { screen: 'Booking' })
+          }
+        }
+      ])
+    } catch (error) {
+      Alert.alert('LogIn result: ', error.message);
+    }
+  }
+
   return (
     <View style={styles.ViewStyle}>
       <View style={styles.TextContainer}>
@@ -20,10 +41,10 @@ const Login = ({ navigation }) => {
       </View>
 
       <View style={styles.container}>
-        <CustomInput width={280} text="Username" />
-        <CustomInput width={280} text="Password"secureTextEntry={true}/>
+        <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} />
+        <CustomInput width={280} text="Password" secureTextEntry={true} onChangeText={setPassword} value={password} />
         <View style={styles.buttonSize}>
-          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={()=>navigation.navigate('Navbar' , { screen: 'Booking' })} />
+          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={handleLogin} />
         </View>
       </View>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
@@ -32,10 +53,6 @@ const Login = ({ navigation }) => {
           <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Sign Up Now</Text>
         </TouchableOpacity>
       </View>
-
-
-
-
     </View>
   );
 };
