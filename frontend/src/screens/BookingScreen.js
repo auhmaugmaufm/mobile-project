@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import CustomInput from '../components/CustomInput'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
 import Board from '../components/Board';
-import Seat from '../components/Seat';
-import Van from '../components/Van';
 
 
 const BookingScreen = ({ navigation }) => {
@@ -51,28 +49,27 @@ const BookingScreen = ({ navigation }) => {
 
     return (
         <View style={styles.ViewStyle}>
-            <Board height='28%'>
+            <Board height='28%' key='input'>
                 <View style={styles.InputContainer}>
                     <View style={styles.DateInput}>
-                        <CustomInput width={280} text='Date' />
+                        <CustomInput width={280} text='Date' key='date'/>
                         <TouchableOpacity style={{ position: 'absolute', right: 8, top: 17 }}>
-                            <MaterialIcons name="calendar-month" size={40} color="white" />
+                            {/* <MaterialIcons name="calendar-month" size={40} color="white" /> */}
                         </TouchableOpacity>
                     </View>
-                    <CustomInput width={280} text='Choose Start' />
-                    <CustomInput width={280} text='Choose Destination' />
+                    <CustomInput width={280} text='Choose Start' key='start'/>
+                    <CustomInput width={280} text='Choose Destination' key='end'/>
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
             <Board height="60%" key='flatlist'>
-
                 <FlatList
                     data={board}
                     keyExtractor={(item) => item.name}
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-                                <CustomCard props={item} />
+                                <CustomCard props={item}/>
                             </TouchableOpacity>
                         )
                     }}
