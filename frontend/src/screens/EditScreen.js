@@ -114,7 +114,15 @@ const styles = StyleSheet.create({
         fontSize: 34,
         color: 'white',
         marginLeft: 15
-    }
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 2,
+        // position: 'absolute'
+        alignSelf: 'flex-start',
+        marginLeft: 5,
+    },
 })
 
 export default EditScreen;

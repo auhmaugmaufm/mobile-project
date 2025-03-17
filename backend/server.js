@@ -110,4 +110,40 @@ app.put('/Users/:id', async (req, res) => {
         })
 })
 
+
+app.get('/boardingpass', async (req, res) => {
+    db.all(
+        `SELECT * FROM BoardingPass`,
+        (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data || data.length === 0) return res.status(404).send({ message: 'Data not found' })
+            res.send(data)
+        }
+    )
+})
+
+app.post('/cartype', async (req, res) => {
+    const { type, seat } = req.body
+    db.run(
+        `INSERT INTO CarType (type, seat) VALUES (?, ?)`,
+        [type, seat],
+        function (error) {
+            if (error) return res.status(400).send({ message: 'Data already exists' })
+            res.send({ message: 'Data registered' })
+        }
+    )
+})
+
+app.post('/boardingpass', async (req, res) => {
+    const { start, end, date, time, status, id_carType } = req.body
+    db.run(
+        `INSERT INTO BoardingPass (start, end, date, time, status, id_carType) VALUES (?, ?, ?, ?, ?, ?)`,
+        [start, end, date, time, status, id_carType],
+        function (error) {
+            if (error) return res.status(400).send({ message: 'Data already exists' })
+            res.send({ message: 'Data registered' })
+        }
+    )
+})
+
 app.listen(5000, () => console.log("Server running on port 5000"))

@@ -38,3 +38,12 @@ export const editPhoneNumber = async (id, phoneNumber, password) => {
         throw new Error(error.response?.data?.message || 'Error Edit') 
     }
 }
+
+export const loadData = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/boardingpass`)
+        return response
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Loading Error') 
+    }
+}
