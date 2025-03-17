@@ -63,19 +63,51 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { phoneNumber, password } = req.body
-    console.log("POST: ",phoneNumber, password)
+    console.log("POST: ", phoneNumber, password)
     db.get(
         `SELECT * FROM Users WHERE phoneNumber = ?`, [phoneNumber],
-        async (err , user) => {
-            if(err) return res.status(400).send({ message: 'Wrong Phone Number or Password' })
+        async (err, user) => {
+            if (err) return res.status(400).send({ message: 'Wrong Phone Number or Password' })
             if (!user || !(await bcrypt.compare(password, user.password))) {
-                return res.status(400).send({message: 'Invalid Credential'})
+                return res.status(400).send({ message: 'Invalid Credential' })
             }
             const token = jwt.sign({ userId: user.id }, 'secretkey')
-            res.send({token})
+            res.send({ token, userId: user.id })
         }
-        
+
     )
+})
+
+app.get('/Users', async (req, res) => {
+    db.all(
+        `SELECT * FROM Users`,
+        (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data || data.length === 0) return res.status(404).send({ message: 'Data Not Found' })
+            res.send(data)
+        }
+    )
+})
+
+app.put('/Users/:id', async (req, res) => {
+    const { id } = req.params;
+    const { phoneNumber, password } = req.body
+    console.log("PUT: ", id, phoneNumber)
+    db.get(
+        `SELECT * FROM Users WHERE id = ?`, [id],
+        async (err, user) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!(await bcrypt.compare(password, user.password))) {
+                return res.status(404).send({ message: 'Incorrect Password' })
+            }
+            db.run(
+                `UPDATE Users SET phoneNumber = ? WHERE id = ?`, [phoneNumber, id],
+                (err) => {
+                    if (err) return res.status(500).send({ message: 'Phone Number already exists' })
+                    res.send({ message: 'Update Succesfully!' })
+                }
+            )
+        })
 })
 
 app.listen(5000, () => console.log("Server running on port 5000"))

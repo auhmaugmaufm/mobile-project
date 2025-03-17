@@ -52,13 +52,13 @@ const BookingScreen = ({ navigation }) => {
             <Board height='28%' key='input'>
                 <View style={styles.InputContainer}>
                     <View style={styles.DateInput}>
-                        <CustomInput width={280} text='Date' key='date'/>
+                        <CustomInput width={280} text='Date' key='date' />
                         <TouchableOpacity style={{ position: 'absolute', right: 8, top: 17 }}>
                             {/* <MaterialIcons name="calendar-month" size={40} color="white" /> */}
                         </TouchableOpacity>
                     </View>
-                    <CustomInput width={280} text='Choose Start' key='start'/>
-                    <CustomInput width={280} text='Choose Destination' key='end'/>
+                    <CustomInput width={280} text='Choose Start' key='start' />
+                    <CustomInput width={280} text='Choose Destination' key='end' />
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
@@ -69,7 +69,7 @@ const BookingScreen = ({ navigation }) => {
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-                                <CustomCard props={item}/>
+                                <CustomCard props={item} />
                             </TouchableOpacity>
                         )
                     }}

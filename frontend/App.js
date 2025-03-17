@@ -56,7 +56,7 @@ const Tabs = () => {
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Navbar" screenOptions={{ headerShown: false, }}>
+            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, }}>
                 <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
