@@ -67,7 +67,7 @@ app.post('/login', async (req, res) => {
     db.get(
         `SELECT * FROM Users WHERE phoneNumber = ?`, [phoneNumber],
         async (err , user) => {
-            if(err) return res.status(400).send({ message: 'Wrong Phone Number or Password' })
+            if(err) return res.status(400).send({ message: 'Wrong Phone Number or Password!' })
             if (!user || !(await bcrypt.compare(password, user.password))) {
                 return res.status(400).send({message: 'Invalid Credential'})
             }
