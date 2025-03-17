@@ -40,10 +40,13 @@ const SignUp = ({ navigation }) => {
     if (!value) {
       error = 'This field is required.'
     } else {
-      if (field === 'phoneNumber' && value.length !== 10) {
-        error = 'Invalid PhoneNumberaum format'
+      if (field === 'phoneNumber') {
+        const phoneRegex = /^(06|08|09)\d{8}$/;
+        if (!phoneRegex.test(value)) {
+          error = 'Invalid Phone Number format.';
+        }
       } else if (field === 'password' && value.length < 8) {
-        error = 'Invalid Password format'
+        error = 'Password must be at least 8 digits'
       } else if (field === 'confirmPassword' && value !== password) {
         error = 'Password not match.'
       }
