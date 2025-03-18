@@ -6,6 +6,7 @@ import Board from '../components/Board';
 import CustomCard from '../components/CustomCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadHistory } from '../services/api';
+import CustomCardHistory from '../components/CustomCardHistory';
 
 
 const BookingHistoryScreen = ({ navigation }) => {
@@ -35,7 +36,7 @@ const BookingHistoryScreen = ({ navigation }) => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <CustomCard props={item} />
+                            <CustomCardHistory props={item} />
                         )
                     }}
                 />

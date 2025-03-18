@@ -22,7 +22,7 @@ const DropdownComponent = ({ name, rawData = [], onSelect }) => {
     const renderLabel = () => {
         if (value || isFocus) {
             return (
-                <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+                <Text style={[styles.label, isFocus && { color: 'green' }]}>
                     {name}
                 </Text>
             );
@@ -34,7 +34,7 @@ const DropdownComponent = ({ name, rawData = [], onSelect }) => {
         <View style={styles.container}>
             {renderLabel()}
             <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                style={[styles.dropdown, isFocus && { borderColor: 'green' }]}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
@@ -59,7 +59,7 @@ const DropdownComponent = ({ name, rawData = [], onSelect }) => {
                 renderLeftIcon={() => (
                     <AntDesign
                         style={styles.icon}
-                        color={isFocus ? 'blue' : 'black'}
+                        color={isFocus ? 'black' : 'green'}
                         name="Safety"
                         size={20}
                     />

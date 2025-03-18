@@ -21,7 +21,7 @@ export const logIn = async (phoneNumber,password) => {
             phoneNumber,
             password
         })
-        return response
+        return response.data
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error logging In') 
     }
@@ -56,3 +56,4 @@ export const loadHistory = async (id) => {
         throw new Error(error.response?.data?.message || 'Loading Error')
     }
 }
+

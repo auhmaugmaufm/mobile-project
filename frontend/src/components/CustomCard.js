@@ -1,22 +1,21 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Board from './Board'
 
 const CustomCard = ({ props }) => {
     const { start, end, time, status, type } = props
-    const backgroundColor = status === 'On Booking' ? 'green' : 'red';
     return (
-        <View style={styles.Container}>
+        <View style={[styles.Container, { backgroundColor: status === 'On Booking' ? 'white' : '#DCDCDC' }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={styles.Text}>{start}📍</Text>
-                <Text style={styles.Text}>{time}</Text>
+                <Text style={styles.Text}>{time} น.</Text>
             </View>
             <View>
                 <Text style={styles.Text}>{end}</Text>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={styles.Text}>{type}</Text>
-                <View style={[styles.StatusContainer, { backgroundColor }]}>
+                <View style={[styles.StatusContainer, { backgroundColor: status === 'On Booking' ? 'green' : 'red' }]}>
                     <Text style={styles.StatusStyle}>{status}</Text>
                 </View>
             </View>
@@ -26,7 +25,7 @@ const CustomCard = ({ props }) => {
 
 const styles = StyleSheet.create({
     Container: {
-        backgroundColor: "white",
+       // backgroundColor: "white",
         padding: 15,
         borderRadius: 10,
         marginBottom: 10,
@@ -46,6 +45,7 @@ const styles = StyleSheet.create({
     StatusStyle: {
         fontWeight: 'bold',
         fontSize: 15,
+        color: 'white'
        // justifyContent: 'center',
         //alignItems: 'center'
     },

@@ -29,15 +29,16 @@ const BookingScreen = ({ navigation }) => {
     const loadingData = async () => {
         const res = await loadData();
         setData(res)
-        if (data.length > 0) {
-            console.log('loading data');
-            const uniqueStarts = [...new Set(data.map(item => item.start))];
-            const uniqueEnds = [...new Set(data.map(item => item.end))];
-            const uniqueDates = [...new Set(data.map(item => item.date))];
-            setStart(uniqueStarts)
-            setEnd(uniqueEnds)
-            setDate(uniqueDates)
-        }
+    }
+
+    const load = () => {
+        console.log('loading data');
+        const uniqueStarts = [...new Set(data.map(item => item.start))];
+        const uniqueEnds = [...new Set(data.map(item => item.end))];
+        const uniqueDates = [...new Set(data.map(item => item.date))];
+        setStart(uniqueStarts)
+        setEnd(uniqueEnds)
+        setDate(uniqueDates)
     }
 
     useFocusEffect(
@@ -45,6 +46,10 @@ const BookingScreen = ({ navigation }) => {
             loadingData()
         }, [])
     )
+
+    useEffect(() => {
+        load()
+    }, [data])
 
     return (
         <View style={styles.ViewStyle}>
@@ -63,9 +68,16 @@ const BookingScreen = ({ navigation }) => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate('Select', { item })} >
-                                <CustomCard props={item} />
-                            </TouchableOpacity>
+                            <View>
+                                {
+                                    item.status == 'Closed' ?
+                                        <CustomCard props={item} />
+                                        :
+                                        <TouchableOpacity onPress={() => navigation.navigate('Select', { item })} >
+                                            <CustomCard props={item} />
+                                        </TouchableOpacity>
+                                }
+                            </View>
                         )
                     }}
                 />

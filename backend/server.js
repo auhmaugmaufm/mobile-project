@@ -32,6 +32,7 @@ db.run(`CREATE TABLE IF NOT EXISTS BoardingPass(
     time TIME,
     status TEXT,
     id_carType INTEGER,
+    Cost INTEGER,
     FOREIGN KEY (id_carType) REFERENCES CarType(id)
 )`);
 
@@ -42,7 +43,9 @@ db.run(`CREATE TABLE IF NOT EXISTS BookingHistory(
     id_seat TEXT,
     FOREIGN KEY (id_BoardingPass) REFERENCES BoardingPass(id),
     FOREIGN KEY (id_User) REFERENCES Users(id)
-)`);
+)`)
+
+// db.run(`DROP TABLE BoardingPass`)
 
 db.run("PRAGMA foreign_keys = ON"); // เพิ่มการเชื่อม foreign key
 
@@ -72,7 +75,7 @@ app.post('/login', async (req, res) => {
                 return res.status(400).send({ message: 'Invalid Credential' })
             }
             const token = jwt.sign({ userId: user.id }, 'secretkey')
-            res.send({ token, userId: user.id })
+            res.send({ token, userId: user.id , userName: user.name})
         }
 
     )
@@ -111,6 +114,7 @@ app.put('/Users/:id', async (req, res) => {
 })
 
 
+
 app.get('/boardingpass', async (req, res) => {
     db.all(
         `SELECT BoardingPass.* , CarType.type FROM BoardingPass LEFT JOIN CarType ON BoardingPass.id_carType=CarType.id`,
@@ -134,16 +138,33 @@ app.post('/cartype', async (req, res) => {
     )
 })
 
+// เพิ่มข้อมูลที่ละแถว
+// app.post('/boardingpass', async (req, res) => {
+//     const { start, end, date, time, status, id_carType } = req.body
+//     db.run(
+//         `INSERT INTO BoardingPass (start, end, date, time, status, id_carType) VALUES (?, ?, ?, ?, ?, ?)`,
+//         [start, end, date, time, status, id_carType],
+//         function (error) {
+//             if (error) return res.status(400).send({ message: 'Data already exists' })
+//             res.send({ message: 'Data registered' })
+//         }
+//     )
+// })
+
 app.post('/boardingpass', async (req, res) => {
-    const { start, end, date, time, status, id_carType } = req.body
+    const data = req.body
+    console.log(data);
+    const s = data.map(() => `(?, ?, ?, ?, ?, ?, ?)`).join(', ')
+    const values = data.flatMap(bp => [bp.start, bp.end, bp.date, bp.time, bp.status, bp.id_carType, bp.Cost])
+
     db.run(
-        `INSERT INTO BoardingPass (start, end, date, time, status, id_carType) VALUES (?, ?, ?, ?, ?, ?)`,
-        [start, end, date, time, status, id_carType],
+        `INSERT INTO BoardingPass (start, end, date, time, status, id_carType, Cost) VALUES ${s}`, values,
         function (error) {
             if (error) return res.status(400).send({ message: 'Data already exists' })
             res.send({ message: 'Data registered' })
         }
     )
+
 })
 
 app.post('/bookinghistory', async (req, res) => {
@@ -190,7 +211,8 @@ app.get('/bookinghistory/:id', async (req, res) => {
             ON BookingHistory.id_BoardingPass = BoardingPass.id
         LEFT JOIN CarType 
             ON BoardingPass.id_carType = CarType.id
-        WHERE Users.id = ?`, [id],
+        WHERE Users.id = ?
+        ORDER BY BookingHistory.id DESC`, [id],
         (err, data) => {
             if (err) return res.status(500).send({ message: 'Something Wrong' })
             if (!data || data.length === 0) return res.status(404).send({ message: 'Data not found' })

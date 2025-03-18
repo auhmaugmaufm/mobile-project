@@ -76,8 +76,8 @@ const SignUp = ({ navigation }) => {
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
         title: 'Sign up Success',
-        textBody: 'You have sign up successfully!',
-        button: 'OK', // กำหนดปุ่ม OK
+        textBody: `${name}, You have sign up successfully!`,
+        button: 'OK', // กำหนดปุ่ม OK 
         onPressButton: () => {
           // เมื่อผู้ใช้กด OK จะนำทางไปยังหน้า Navbar
           navigation.navigate('Login')

@@ -8,7 +8,7 @@ import DropdownComponent from "../components/Dropdown";
 
 const SelectScreen = ({ navigation, route }) => {
   const { item } = route.params
-  const { start, end, time, date, type } = item
+  const { start, end, time, date, type, Cost } = item
 
   return (
     <View style={styles.ViewStyle}>
@@ -36,7 +36,7 @@ const SelectScreen = ({ navigation, route }) => {
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Time</Text>
-            <Text style={styles.TextSub}>{time}</Text>
+            <Text style={styles.TextSub}>{time} น.</Text>
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Car Type</Text>
@@ -46,7 +46,7 @@ const SelectScreen = ({ navigation, route }) => {
             <DropdownComponent name='Select Seat' />
           </View>
           <View style={styles.TextBox}>
-            <Text style={styles.TextTitle}>Price</Text>
+            <Text style={styles.TextTitle}>Summary</Text>
             <Text style={styles.TextSub}>total ...</Text>
           </View>
         </View>
