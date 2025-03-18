@@ -6,15 +6,39 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
 import Board from '../components/Board';
 import { loadData } from '../services/api';
-
+import DropdownComponent from '../components/Dropdown';
+import CustomButton from '../components/CustomButton';
 
 const BookingScreen = ({ navigation }) => {
 
     const [data, setData] = useState([])
+    const [start, setStart] = useState([])
+    const [date, setDate] = useState([])
+    const [end, setEnd] = useState([])
+
+    const [selectedDate, setSelectedDate] = useState()
+    const [selectedStart, setSelectedStart] = useState()
+    const [selectedEnd, setSelectedEnd] = useState()
+
+    const filteredData = data.filter(item =>
+        (!selectedDate || item.date === selectedDate) &&
+        (!selectedStart || item.start === selectedStart) &&
+        (!selectedEnd || item.end === selectedEnd)
+    );
 
     const loadingData = async () => {
         const res = await loadData();
         setData(res)
+        if (data.length > 0) {
+            console.log('if' , data);
+            const uniqueStarts = [...new Set(data.map(item => item.start))];
+            const uniqueEnds = [...new Set(data.map(item => item.end))];
+            const uniqueDates = [...new Set(data.map(item => item.date))];
+            setStart(uniqueStarts)
+            setEnd(uniqueEnds)
+            setDate(uniqueDates)
+            //console.log('end : ', end);
+        }
     }
 
     useFocusEffect(
@@ -26,26 +50,21 @@ const BookingScreen = ({ navigation }) => {
     return (
         <View style={styles.ViewStyle}>
             <Text style={styles.TextHeader}>Let's Booking</Text>
-            <Board height='28%' key='input'>
-                <View style={styles.InputContainer}>
-                    <View style={styles.DateInput}>
-                        <CustomInput width={280} text='Date' key='date' />
-                        <TouchableOpacity style={{ position: 'absolute', right: 8, top: 17 }}>
-                            <MaterialIcons name="calendar-month" size={40} color="white" />
-                        </TouchableOpacity>
-                    </View>
-                    <CustomInput width={280} text='Choose Start' key='start' />
-                    <CustomInput width={280} text='Choose Destination' key='end' />
+            <Board height='30%' key='input'>
+                <View style={{ padding: 10 }}>
+                    <DropdownComponent name='Choose Date' rawData={date} onSelect={setSelectedDate} key='date' />
+                    <DropdownComponent name='Choose Start' rawData={start} onSelect={setSelectedStart} key='start' />
+                    <DropdownComponent name='Choose Destination' rawData={end} onSelect={setSelectedEnd} key='end' />
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
             <Board height="55%" key='flatlist'>
                 <FlatList
-                    data={data}
+                    data={filteredData}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate('Select', {item})} >
+                            <TouchableOpacity onPress={() => navigation.navigate('Select', { item })} >
                                 <CustomCard props={item} />
                             </TouchableOpacity>
                         )
@@ -63,6 +82,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#1E535F',
     },
     InputContainer: {
+        width: "100%",
+        height: "100%",
         marginTop: 25,
         alignItems: "center",
     },
@@ -75,6 +96,11 @@ const styles = StyleSheet.create({
         color: 'white',
         marginLeft: 55,
         marginBottom: 20,
-    }
+    },
+    ButtonStyle: {
+        marginLeft: "35%",
+        width: "30%",
+        height: 70,
+    },
 })
 export default BookingScreen

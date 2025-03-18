@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://10.48.0.108:5000';
+const API_URL = 'http://10.34.95.233:5000';
 
 export const signUp = async (name, password, phoneNumber) => {
     try {
