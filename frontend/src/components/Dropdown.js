@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const DropdownComponent = ({ name, rawData = [], onSelect }) => {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-    console.log('raw : ', rawData);
 
     const data = rawData.map((item) => ({
         label: item,
@@ -69,7 +68,7 @@ const DropdownComponent = ({ name, rawData = [], onSelect }) => {
             {
                 value ?
                     <TouchableOpacity onPress={clearData} style={{ position: 'absolute', right: 0 }}>
-                        <Icon name="cancel" size={30} color="#ccc" />
+                        <Icon name="cancel" size={30} color="red" />
                     </TouchableOpacity> :
                     null
             }

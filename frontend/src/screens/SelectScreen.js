@@ -1,94 +1,96 @@
-import React,{useContext} from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Board from "../components/Board";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
-import ThemeContext from '../context/ThemeContext'
 
-const SelectScreen = () => {
-  const Theme = useContext(ThemeContext)
+const SelectScreen = ({ navigation, route }) => {
+  const { item } = route.params
+  const { start, end, time, date, type } = item
+
   return (
-    <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+    <View style={styles.ViewStyle}>
       <View style={styles.TextStyle}>
-        <Text style={[styles.TextHead,{color:Theme.color}]}>Booking</Text>
-        <Text style={[styles.TextSub,{color:Theme.color}]}>Let' s booking!</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("BookingMain")}>
+            <MaterialIcons name="arrow-back" size={40} color="white" />
+          </TouchableOpacity>
+          <Text style={styles.TextHead}>Booking</Text>
+        </View>
       </View>
-
-      <Board
-        style={{ color: "white" }}
-        height={"82%"}
-        children={
-          <View style={styles.ViewChildren}>
-            <Text style={styles.TextTitle}> Start📍 </Text>
-            <CustomInput width={"90%"} />
-            <Text style={styles.TextTitle}> Dest👣 </Text>
-            <CustomInput width={"90%"} />
-            <Text style={styles.TextTitle}> Time</Text>
-            <CustomInput width={"90%"} />
-            <Text style={styles.TextTitle}> Tel </Text>
-            <View>
-              <CustomInput width={"90%"} />
-              <TouchableOpacity
-                style={{ position: "absolute", right: 32, top: 19 }}
-              >
-                <MaterialIcons name="file-copy" size={35} color="white" />
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.TextTitle}> ที่นั่ง </Text>
-
-            <Board style={{ color: "pink" }} height={"20%"} />
-
-            <Text style={styles.TextTitle}> Price บาท</Text>
-            <View style={styles.ButtonStyle}>
-              <CustomButton
-                title="Book"
-                backgroundColor={"#008000"}
-                color={"white"}
-              />
-            </View>
+      <Board height={"80%"} backgroundColor='white'>
+        <View style={{ padding: 10 }}>
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Start Point 📍</Text>
+            <Text style={styles.TextSub}>{start}</Text>
           </View>
-        }
-      />
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Destination</Text>
+            <Text style={styles.TextSub}>{end}</Text>
+          </View>
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Date</Text>
+            <Text style={styles.TextSub}>{date}</Text>
+          </View>
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Time</Text>
+            <Text style={styles.TextSub}>{time}</Text>
+          </View>
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Car Type</Text>
+            <Text style={styles.TextSub}>{type}</Text>
+          </View>
+          <View>
+            
+          </View>
+          <View style={styles.TextBox}>
+            <Text style={styles.TextTitle}>Price</Text>
+            <Text style={styles.TextSub}>total ...</Text>
+          </View>
+        </View>
+        <View style={styles.ButtonStyle}>
+          <CustomButton backgroundColor='green' title='Done' color='white'onPress={() => navigation.navigate('Payment')} />
+        </View>
+      </Board>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   ViewStyle: {
-    paddingTop: 92,
+    paddingTop: 60,
     flex: 1,
     backgroundColor: "#1E535F",
-    // paddingLeft: "10%",
   },
   TextStyle: {
     marginBottom: 20,
-    paddingLeft: "10%",
   },
   TextHead: {
-    fontWeight: "bold",
-    fontSize: 40,
-    color: "white",
-  },
-  TextSub: {
-    fontWeight: "300",
-    fontSize: 19,
-    color: "white",
-  },
-  ViewChildren: {
-    paddingLeft: "5%",
+    fontWeight: 'bold',
+    fontSize: 34,
+    color: 'white',
+    marginLeft: 15
   },
   ButtonStyle: {
-    width: 100,
+    marginLeft: "10%",
+    width: "80%",
     height: 70,
-    marginLeft: "30%",
   },
   TextTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 16,
     marginTop: 5,
+    color: '#8c8c8c'
   },
+  TextBox: {
+    padding: 10
+  },
+  TextSub: {
+    fontWeight: "bold",
+    fontSize: 23,
+    marginLeft: "5%"
+  }
 });
 
 export default SelectScreen;

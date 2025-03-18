@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,Image } from "react-native";
 import CustomButton from "../components/CustomButton";
 import Theme from "../context/Them";
 
-const Payment = ({navigation}) => {
+const PaymentScreen = ({navigation}) => {
   const Theme = useContext(Theme);
 
   return (
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Payment;
+export default PaymentScreen;

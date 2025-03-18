@@ -30,14 +30,13 @@ const BookingScreen = ({ navigation }) => {
         const res = await loadData();
         setData(res)
         if (data.length > 0) {
-            console.log('if' , data);
+            console.log('loading data');
             const uniqueStarts = [...new Set(data.map(item => item.start))];
             const uniqueEnds = [...new Set(data.map(item => item.end))];
             const uniqueDates = [...new Set(data.map(item => item.date))];
             setStart(uniqueStarts)
             setEnd(uniqueEnds)
             setDate(uniqueDates)
-            //console.log('end : ', end);
         }
     }
 
@@ -50,7 +49,7 @@ const BookingScreen = ({ navigation }) => {
     return (
         <View style={styles.ViewStyle}>
             <Text style={styles.TextHeader}>Let's Booking</Text>
-            <Board height='30%' key='input'>
+            <Board height='30%' key='input' backgroundColor='white'>
                 <View style={{ padding: 10 }}>
                     <DropdownComponent name='Choose Date' rawData={date} onSelect={setSelectedDate} key='date' />
                     <DropdownComponent name='Choose Start' rawData={start} onSelect={setSelectedStart} key='start' />
@@ -58,7 +57,7 @@ const BookingScreen = ({ navigation }) => {
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
-            <Board height="55%" key='flatlist'>
+            <Board height="55%" key='flatlist' backgroundColor='white'>
                 <FlatList
                     data={filteredData}
                     keyExtractor={(item) => item.id}

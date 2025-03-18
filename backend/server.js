@@ -44,6 +44,8 @@ db.run(`CREATE TABLE IF NOT EXISTS BookingHistory(
     FOREIGN KEY (id_User) REFERENCES Users(id)
 )`);
 
+db.run(`DELETE FROM BoardingPass WHERE start='Kamphaengsaen'`)
+
 db.run("PRAGMA foreign_keys = ON"); // เพิ่มการเชื่อม foreign key
 
 app.post('/signup', async (req, res) => {

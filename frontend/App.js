@@ -15,6 +15,7 @@ import EditScreen from "./src/screens/EditScreen";
 import Login from './src/screens/Login';
 import SettingScreen from './src/screens/SettingScreen';
 import SelectScreen from './src/screens/SelectScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
 import Theme from './src/context/Them';
 import ThemeContext from './src/context/ThemeContext';
 
@@ -39,6 +40,7 @@ const StackBookingScreen = () => {
             <BookingStack.Navigator screenOptions={{ headerShown: false }}>
                 <BookingStack.Screen name="BookingMain" component={BookingScreen} />
                 <BookingStack.Screen name="Select" component={SelectScreen} />
+                <BookingStack.Screen name="Payment" component={PaymentScreen} />
             </BookingStack.Navigator>
         </View>
     )
