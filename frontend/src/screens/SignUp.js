@@ -5,6 +5,7 @@ import CustomButton from "../components/CustomButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { signUp } from "../services/api";
 import ThemeContext from '../context/ThemeContext'
+import { AlertNotificationRoot , Dialog , ALERT_TYPE } from "react-native-alert-notification";
 
 const SignUp = ({ navigation }) => {
 
@@ -72,23 +73,25 @@ const SignUp = ({ navigation }) => {
   const handleSignUp = async () => {
     try {
       await signUp(name, password, phoneNumber);
-      Alert.alert('Registration result: ', 'SUCCESS', [
-        {
-          text: 'OK',
-          onPress: () => {
-            setName('')
-            setPassword('')
-            setConfirmPassword('')
-            setErrors({ username: '', password: '', confirmPassword: '', phoneNumber: '' })
-            navigation.navigate("Login")
-          }
-        }
-      ])
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Sign up Success',
+        textBody: 'You have sign up successfully!',
+        button: 'OK', // กำหนดปุ่ม OK
+        onPressButton: () => {
+          // เมื่อผู้ใช้กด OK จะนำทางไปยังหน้า Navbar
+          navigation.navigate('Login')
+        },
+      });
     } catch (error) {
-      Alert.alert('Registration result: ', error.message)
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Sign up failed',
+        textBody: error.message,
+        button: 'OK', // กำหนดปุ่ม OK
+      });
     }
   }
-
 
   return (
     <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
@@ -149,7 +152,7 @@ const SignUp = ({ navigation }) => {
           <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Login</Text>
         </TouchableOpacity>
       </View>
-
+      <AlertNotificationRoot />
     </View>
   );
 };

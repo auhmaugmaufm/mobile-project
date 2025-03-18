@@ -26,7 +26,7 @@ const Login = ({ navigation }) => {
           type: ALERT_TYPE.SUCCESS,
           title: 'Login Success',
           textBody: 'You have logged in successfully!',
-          button: 'OK', // กำหนดปุ่ม OK
+          button: 'OK',
           onPressButton: () => {
             // เมื่อผู้ใช้กด OK จะนำทางไปยังหน้า Navbar
             navigation.navigate('Navbar', { screen: 'Booking' });

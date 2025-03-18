@@ -1,5 +1,6 @@
 import React, { useState,useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { AlertNotificationRoot , Dialog , ALERT_TYPE } from "react-native-alert-notification";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -8,6 +9,7 @@ import CustomButton from '../components/CustomButton';
 import Board from "../components/Board";
 import { editPhoneNumber } from "../services/api";
 import ThemeContext from '../context/ThemeContext'
+
 
 const EditScreen = ({ navigation }) => {
     const Theme = useContext(ThemeContext)
@@ -22,10 +24,22 @@ const EditScreen = ({ navigation }) => {
         try {
             const id = await AsyncStorage.getItem('userId')
             await editPhoneNumber(id, phoneNumber, password);
-            Alert.alert('Edit result: ', 'SUCCESS',)
-            navigation.navigate("Home")
+            Dialog.show({
+                type:ALERT_TYPE.SUCCESS,
+                title:"Edit Success",
+                textBody:"You have edit successfully!",
+                button:"OK",
+                onPressButton: ()=>{
+                    navigation.navigate("Home")
+                }
+            })
         } catch (error) {
-            Alert.alert('Edit result: ', error.message);
+            Dialog.show({
+                type:ALERT_TYPE.WARNING,
+                title:"Edit Failed",
+                textBody:error.message,
+                button:"OK"
+            })
         }
     }
 
@@ -82,6 +96,7 @@ const EditScreen = ({ navigation }) => {
                     </View>
                 </View>
             </Board>
+            <AlertNotificationRoot/>
         </View>
     )
 }
