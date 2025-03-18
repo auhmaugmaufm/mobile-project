@@ -4,7 +4,7 @@ import Board from './Board'
 
 const CustomCard = ({ props }) => {
     const { start, end, time, status, type } = props
-    const backgroundColor = status === 'On booking' ? 'green' : 'red';
+    const backgroundColor = status === 'On Booking' ? 'green' : 'red';
     return (
         <View style={styles.Container}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

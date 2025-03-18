@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomInput from "../components/CustomInput";
 import CustomButtonLong from "../components/CustomButton";
 import { logIn } from "../services/api";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
 
@@ -12,15 +13,21 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      await logIn(phoneNumber, password)
-      Alert.alert('LogIn result: ', 'SUCCESS', [
-        {
-          text: 'OK',
-          onPress: () => {
-            navigation.navigate('Navbar', { screen: 'Booking' })
+      const response = await logIn(phoneNumber, password)
+      const { token, userId } = response.data
+      await AsyncStorage.setItem('userId', JSON.stringify(userId));
+  
+      if (token) {
+        Alert.alert('LogIn result: ', 'SUCCESS', [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Navbar', { screen: 'Booking' })
+            }
           }
-        }
-      ])
+        ])
+      }
+
     } catch (error) {
       Alert.alert('LogIn result: ', error.message);
     }

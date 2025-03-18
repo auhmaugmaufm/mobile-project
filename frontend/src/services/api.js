@@ -21,8 +21,29 @@ export const logIn = async (phoneNumber,password) => {
             phoneNumber,
             password
         })
-        return response.data.token
+        return response
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error logging In') 
+    }
+}
+
+export const editPhoneNumber = async (id, phoneNumber, password) => {
+    try {
+        const response = await axios.put(`${API_URL}/Users/${id}`, {
+            phoneNumber,
+            password
+        })
+        return response
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Error Edit') 
+    }
+}
+
+export const loadData = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/boardingpass`)
+        return response
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Loading Error') 
     }
 }
