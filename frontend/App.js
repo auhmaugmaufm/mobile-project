@@ -83,7 +83,7 @@ const App = () => {
     return (
         <ThemeContext.Provider value={darkMode == true ? Theme.dark : Theme.light}>
             <NavigationContainer Theme={darkMode == true ? DarkTheme : DefaultTheme}>
-                <Stack.Navigator initialRouteName="Navbar" screenOptions={{ headerShown: false, }}>
+                <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, }}>
                     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
