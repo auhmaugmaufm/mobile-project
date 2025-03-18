@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect, useState, useCallback } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
 import CustomInput from '../components/CustomInput'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
@@ -13,15 +14,18 @@ const BookingScreen = ({ navigation }) => {
 
     const loadingData = async () => {
         const res = await loadData();
-        setData(res.data)
+        setData(res)
     }
 
-    useEffect(() => {
-        loadingData()
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            loadingData()
+        }, [])
+    )
 
     return (
         <View style={styles.ViewStyle}>
+            <Text style={styles.TextHeader}>Let's Booking</Text>
             <Board height='28%' key='input'>
                 <View style={styles.InputContainer}>
                     <View style={styles.DateInput}>
@@ -35,7 +39,7 @@ const BookingScreen = ({ navigation }) => {
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
-            <Board height="60%" key='flatlist'>
+            <Board height="55%" key='flatlist'>
                 <FlatList
                     data={data}
                     keyExtractor={(item) => item.id}
@@ -64,6 +68,13 @@ const styles = StyleSheet.create({
     },
     DateInput: {
         flexDirection: 'row',
+    },
+    TextHeader: {
+        fontWeight: 'bold',
+        fontSize: 34,
+        color: 'white',
+        marginLeft: 55,
+        marginBottom: 20,
     }
 })
 export default BookingScreen
