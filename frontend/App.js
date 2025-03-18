@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,DarkTheme, DefaultTheme } from '@react-navigation/native';
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { EventRegister } from 'react-native-event-listeners'
+
 
 import HomeScreen from "./src/screens/HomeScreen";
 import SignUp from "./src/screens/SignUp";
@@ -12,7 +14,9 @@ import BookingScreen from "./src/screens/BookingScreen";
 import EditScreen from "./src/screens/EditScreen";
 import Login from './src/screens/Login';
 import SettingScreen from './src/screens/SettingScreen';
-import SelectScreen from './src/screens/SelectScreen'
+import SelectScreen from './src/screens/SelectScreen';
+import Theme from './src/context/Them';
+import ThemeContext from './src/context/ThemeContext';
 
 // สร้าง Stack Navigator และ Tab Navigator
 const Stack = createNativeStackNavigator();
@@ -65,15 +69,28 @@ const Tabs = () => {
 };
 
 const App = () => {
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(()=>{
+        const listener = EventRegister.addEventListener('ChangeTheme', (data) => {
+            setDarkMode(data)
+            console.log(data)
+    })
+    return ()=> {
+        EventRegister.removeAllListeners(listener)
+    }},[darkMode])
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Navbar" screenOptions={{ headerShown: false, }}>
-                <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <ThemeContext.Provider value={darkMode == true ? Theme.dark : Theme.light}>
+            <NavigationContainer Theme={darkMode == true ? DarkTheme : DefaultTheme}>
+                <Stack.Navigator initialRouteName="Navbar" screenOptions={{ headerShown: false, }}>
+                    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+                    <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                    <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </ThemeContext.Provider>
     );
 };
 

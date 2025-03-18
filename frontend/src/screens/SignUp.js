@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { signUp } from "../services/api";
+import ThemeContext from '../context/ThemeContext'
 
 const SignUp = ({ navigation }) => {
 
+  const Theme = useContext(ThemeContext)
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -89,18 +91,18 @@ const SignUp = ({ navigation }) => {
 
 
   return (
-    <View style={styles.ViewStyle}>
+    <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.TextContainer}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10%' }}>
-          <Text style={styles.TextHead}>Create account</Text>
+          <Text style={[styles.TextHead,{color:Theme.color}]}>Create account</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <MaterialIcons name="home" size={40} color="white" />
           </TouchableOpacity>
         </View>
-        <Text style={styles.TextSub}>Sign up to get started!</Text>
+        <Text style={[styles.TextSub,{color:Theme.color}]}>Sign up to get started!</Text>
       </View>
 
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: Theme.backgroundcontainer }]}>
         <CustomInput
           width={280}
           text="Name"

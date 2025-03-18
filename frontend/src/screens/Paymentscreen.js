@@ -1,13 +1,14 @@
-import React from "react";
+import React,{useContext} from "react";
 import { View, Text, StyleSheet,Image } from "react-native";
 import CustomButton from "../components/CustomButton";
+import Theme from "../context/Them";
 
 const Payment = ({navigation}) => {
-  
+  const Theme = useContext(Theme);
 
   return (
-    <View style={styles.ViewStyle}>
-      <Text style={styles.TextHead}> Scan QR-code📍</Text>
+    <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+      <Text style={[styles.TextHead,{color:Theme.color}]}> Scan QR-code📍</Text>
       <View style={styles.container}>
         <Image style={styles.Image} source={{ uri: 'https://media.discordapp.net/attachments/1295624731650949123/1344690748934586489/image0.jpg?ex=67d4f219&is=67d3a099&hm=731673485fc9a71c772c72c7e750a2b1b8a782b50d6ee0275d47c8460f6c68de&=&format=webp&width=700&height=703' }} />
         <Text style={{fontSize: 20, color: 'black', marginTop: 20}}>เมธาวี </Text>

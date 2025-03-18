@@ -1,14 +1,18 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Board from '../components/Board'
 import CustomButton from '../components/CustomButton'
 import CustomToggle from '../components/CustomToggle'
+import ThemeContext from '../context/ThemeContext'
+
 
 const SettingScreen = ({ navigation }) => {
+    const Theme = useContext(ThemeContext)
+
     return (
-        <View style={styles.ViewStyle}>
-            <Text style={styles.TextHeader}>Setting</Text>
-            <Board height='50%'>
+        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+            <Text style={[styles.TextHeader,{color:Theme.color}]}>Setting</Text>
+            <Board height='50%' backgroundColor={Theme.backgroundcontainer}>
                 <View style={{ flex: 1 , alignItems: 'center'}}>
                     <View style={styles.buttonSize}>
                         <CustomToggle title='Dark Mode' backgroundColor='#ccc' color='white' onPress={() => navigation.navigate("#")} />

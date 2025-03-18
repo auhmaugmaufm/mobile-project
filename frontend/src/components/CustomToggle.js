@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, Switch, TouchableOpacity } from 'react-native'
+import { EventRegister } from 'react-native-event-listeners'
+import ThemeContext from '../context/ThemeContext'
 
-const CustomToggle = ({ title, backgroundColor, color }) => {
+
+const CustomToggle = ({ title, backgroundColor, color,value  }) => {
     const [isEnabled, setIsEnabled] = useState(false);
     return (
         <View style={[styles.Button, { backgroundColor }]}>
@@ -11,10 +14,11 @@ const CustomToggle = ({ title, backgroundColor, color }) => {
             </View>
             <View>
                 <Switch
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                    onValueChange={() => setIsEnabled(!isEnabled)}
                     value={isEnabled}
+                    onValueChange={(value) => {
+                        setIsEnabled(value)
+                        EventRegister.emit('ChangeTheme', value)}}
+
                 />
             </View>
         </View>

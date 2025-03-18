@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomInput from "../components/CustomInput";
 import CustomButtonLong from "../components/CustomButton";
 import { logIn } from "../services/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ThemeContext from '../context/ThemeContext'
 
 const Login = ({ navigation }) => {
 
+  const Theme = useContext(ThemeContext);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,20 +36,20 @@ const Login = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.ViewStyle}>
+    <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.TextContainer}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10%' }}>
-          <Text style={styles.TextHead}>Log in</Text>
+          <Text style={[styles.TextHead,{color:Theme.color}]}>Log in</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <MaterialIcons name="home" size={40} color="white" />
           </TouchableOpacity>
 
         </View>
 
-        <Text style={styles.TextSub}>Enter your credential to continue</Text>
+        <Text style={[styles.TextSub,{color:Theme.color}]}>Enter your credential to continue</Text>
       </View>
 
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: Theme.backgroundcontainer }]}>
         <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} />
         <CustomInput width={280} text="Password" secureTextEntry={true} onChangeText={setPassword} value={password} />
         <View style={styles.buttonSize}>
@@ -55,9 +57,9 @@ const Login = ({ navigation }) => {
         </View>
       </View>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
-        <Text style={styles.TextFooter}>Don't have an account ?</Text>
+        <Text style={[styles.TextFooter,{color:Theme.color}]}>Don't have an account ?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Sign Up Now</Text>
+          <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' },{color:Theme.color}]}>Sign Up Now</Text>
         </TouchableOpacity>
       </View>
     </View>

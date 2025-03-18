@@ -1,20 +1,21 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import CustomButton from '../components/CustomButton'
-
+import  ThemeContext  from '../context/ThemeContext';
 const HomeScreen = ({navigation}) => {
+    const Theme = useContext(ThemeContext)
     return (
-        <View style={styles.ViewStyle}>
+        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
             <View style={styles.TextContainer}>
-                <Text style={styles.TextTitle}>RODTUU JABDEK 🚨</Text>
+                <Text style={[styles.TextTitle,{color:Theme.color}]}>RODTUU JABDEK 🚨</Text>
             </View>
             <View style={styles.Container}>
                 <Image style={styles.Image} source={{ uri: 'https://images.vexels.com/media/users/3/128645/isolated/preview/d96ab2658b0f1366bfc2d7074b49730b-retro-glossy-van.png' }} />
             </View>
 
             <View style={styles.TextContainer}>
-                <Text style={styles.TextHead}>Let's{'\n'}get started</Text>
-                <Text style={styles.TextSub}>Everything start from here!</Text>
+                <Text style={[styles.TextHead,{color:Theme.color}]}>Let's{'\n'}get started</Text>
+                <Text style={[styles.TextSub,{color:Theme.color}]}>Everything start from here!</Text>
             </View>
             <View style={styles.ButtonContainer}>
                 <View style={styles.buttonSize}>

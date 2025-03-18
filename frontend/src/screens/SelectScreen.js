@@ -1,16 +1,18 @@
-import React from "react";
+import React,{useContext} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Board from "../components/Board";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
+import ThemeContext from '../context/ThemeContext'
 
 const SelectScreen = () => {
+  const Theme = useContext(ThemeContext)
   return (
-    <View style={styles.ViewStyle}>
+    <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
       <View style={styles.TextStyle}>
-        <Text style={styles.TextHead}>Booking</Text>
-        <Text style={styles.TextSub}>Let' s booking!</Text>
+        <Text style={[styles.TextHead,{color:Theme.color}]}>Booking</Text>
+        <Text style={[styles.TextSub,{color:Theme.color}]}>Let' s booking!</Text>
       </View>
 
       <Board
