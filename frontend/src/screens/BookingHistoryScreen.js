@@ -1,26 +1,45 @@
-import React,{useContext} from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import  ThemeContext  from '../context/ThemeContext';
+import React, { useState, useCallback, useContext } from 'react'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
+import ThemeContext from '../context/ThemeContext';
+import Board from '../components/Board';
+import CustomCard from '../components/CustomCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadHistory } from '../services/api';
 
 
-const BookingHistoryScreen = ({navigation}) => {
+const BookingHistoryScreen = ({ navigation }) => {
     const Theme = useContext(ThemeContext);
+    const [data, setData] = useState([])
+
+    const loadingData = async () => {
+        const id = await AsyncStorage.getItem('userId')
+        const res = await loadHistory(id);
+        setData(res)
+    }
+
+    console.log(data);
+
+    useFocusEffect(
+        useCallback(() => {
+            loadingData()
+        }, [])
+    )
 
     return (
-        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
-            <Text style={[styles.TextHeader,{color:Theme.color}]}>Booking History</Text>
-            <FlatList
-                    // data={filteredGoods}
-                    // keyExtractor={(item) => item.id.toString()}
-                    // renderItem={({ item }) => {
-                    //     return (
-                    //         <TouchableOpacity onPress={() => openModal("edit", item)}>
-                    //             <ItemCard name={item.title} cost={parseFloat(item.cost)} img={item.img} status={item.status} />
-                    //         </TouchableOpacity>
-                    //     )
-                    // }}
+        <View style={styles.ViewStyle}>
+            <Text style={styles.TextHeader}>Booking History</Text>
+            <Board height={"80%"} backgroundColor="white">
+                <FlatList
+                    data={data}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => {
+                        return (
+                            <CustomCard props={item} />
+                        )
+                    }}
                 />
+            </Board>
         </View>
     )
 }
@@ -35,7 +54,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 34,
         color: 'white',
-        marginLeft: 55
+        marginLeft: 55,
+        marginBottom: 20,
     }
 })
 

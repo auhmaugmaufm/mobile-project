@@ -47,3 +47,12 @@ export const loadData = async () => {
         throw new Error(error.response?.data?.message || 'Loading Error') 
     }
 }
+
+export const loadHistory = async (id) => {
+    try {
+        const response = await axios.get(`${API_URL}/bookinghistory/${id}`)
+        return response.data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Loading Error')
+    }
+}

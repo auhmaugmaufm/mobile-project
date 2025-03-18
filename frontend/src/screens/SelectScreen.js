@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Board from "../components/Board";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
+import DropdownComponent from "../components/Dropdown";
 
 const SelectScreen = ({ navigation, route }) => {
   const { item } = route.params
@@ -42,7 +43,7 @@ const SelectScreen = ({ navigation, route }) => {
             <Text style={styles.TextSub}>{type}</Text>
           </View>
           <View>
-            
+            <DropdownComponent name='Select Seat' />
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Price</Text>
@@ -50,7 +51,7 @@ const SelectScreen = ({ navigation, route }) => {
           </View>
         </View>
         <View style={styles.ButtonStyle}>
-          <CustomButton backgroundColor='green' title='Done' color='white'onPress={() => navigation.navigate('Payment')} />
+          <CustomButton backgroundColor='green' title='Done' color='white' onPress={() => navigation.navigate('Payment')} />
         </View>
       </Board>
     </View>

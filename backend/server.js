@@ -44,8 +44,6 @@ db.run(`CREATE TABLE IF NOT EXISTS BookingHistory(
     FOREIGN KEY (id_User) REFERENCES Users(id)
 )`);
 
-db.run(`DELETE FROM BoardingPass WHERE start='Kamphaengsaen'`)
-
 db.run("PRAGMA foreign_keys = ON"); // เพิ่มการเชื่อม foreign key
 
 app.post('/signup', async (req, res) => {
@@ -144,6 +142,59 @@ app.post('/boardingpass', async (req, res) => {
         function (error) {
             if (error) return res.status(400).send({ message: 'Data already exists' })
             res.send({ message: 'Data registered' })
+        }
+    )
+})
+
+app.post('/bookinghistory', async (req, res) => {
+    const { id_boardingPass, userId, id_seat } = req.body
+    db.run(
+        `INSERT INTO BookingHistory (id_BoardingPass, id_User, id_seat) VALUES (?, ?, ?)`,
+        [id_boardingPass, userId, id_seat],
+        function (error) {
+            if (error) return res.status(400).send({ message: 'Seat already exists' })
+            res.send({ message: 'Seat registered' })
+        }
+    )
+})
+
+
+app.get('/bookinghistory', async (req, res) => {
+    db.all(
+        `SELECT * FROM BookingHistory`,
+        (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data || data.length === 0) return res.status(404).send({ message: 'Data not found' })
+            res.send(data)
+        }
+    )
+})
+
+app.get('/bookinghistory/:id', async (req, res) => {
+    const { id } = req.params
+    db.all(
+        `SELECT 
+            BookingHistory.id,
+            BoardingPass.start,
+            BoardingPass.end,
+            BoardingPass.time,
+            BoardingPass.date,
+            Users.name, 
+            Users.phoneNumber,
+            CarType.type AS carType
+        FROM 
+            BookingHistory
+        LEFT JOIN Users 
+            ON BookingHistory.id_User = Users.id
+        LEFT JOIN BoardingPass 
+            ON BookingHistory.id_BoardingPass = BoardingPass.id
+        LEFT JOIN CarType 
+            ON BoardingPass.id_carType = CarType.id
+        WHERE Users.id = ?`, [id],
+        (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data || data.length === 0) return res.status(404).send({ message: 'Data not found' })
+            res.send(data)
         }
     )
 })
