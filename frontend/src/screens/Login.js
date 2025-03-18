@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomInput from "../components/CustomInput";
 import CustomButtonLong from "../components/CustomButton";
 import { logIn } from "../services/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
 
 const Login = ({ navigation }) => {
 
@@ -13,23 +14,30 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await logIn(phoneNumber, password)
-      const { token, userId } = response.data
+      const response = await logIn(phoneNumber, password);
+      const { token, userId } = response.data;
       await AsyncStorage.setItem('userId', JSON.stringify(userId));
-  
+      
       if (token) {
-        Alert.alert('LogIn result: ', 'SUCCESS', [
-          {
-            text: 'OK',
-            onPress: () => {
-              navigation.navigate('Navbar', { screen: 'Booking' })
-            }
-          }
-        ])
+        // แสดง Dialog เมื่อล็อกอินสำเร็จ
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: 'Login Success',
+          textBody: 'You have logged in successfully!',
+          button: 'OK', // กำหนดปุ่ม OK
+          onPressButton: () => {
+            // เมื่อผู้ใช้กด OK จะนำทางไปยังหน้า Navbar
+            navigation.navigate('Navbar', { screen: 'Booking' });
+          },
+        });
       }
-
-    } catch (error) {
-      Alert.alert('LogIn result: ', error.message);
+    }catch (error) {
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Login Failed',
+        textBody: error.message,
+        button: 'OK'
+      });
     }
   }
 
@@ -41,7 +49,6 @@ const Login = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <MaterialIcons name="home" size={40} color="white" />
           </TouchableOpacity>
-
         </View>
 
         <Text style={styles.TextSub}>Enter your credential to continue</Text>
@@ -60,6 +67,8 @@ const Login = ({ navigation }) => {
           <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Sign Up Now</Text>
         </TouchableOpacity>
       </View>
+
+      <AlertNotificationRoot />
     </View>
   );
 };
@@ -69,7 +78,6 @@ const styles = StyleSheet.create({
     paddingTop: 92,
     flex: 1,
     backgroundColor: "#1E535F",
-    // alignItems: 'center'
   },
   TextHead: {
     fontWeight: "bold",
@@ -93,7 +101,6 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
     borderRadius: 18,
     padding: 20,
-    // marginTop: 5,
   },
   buttonSize: {
     width: 190,
@@ -101,11 +108,8 @@ const styles = StyleSheet.create({
   },
   TextFooter: {
     color: 'white',
-    marginLeft: '10%'
+    marginLeft: '10%',
   },
-
-
-
 });
 
 export default Login;
