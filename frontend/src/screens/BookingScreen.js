@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback,useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import CustomInput from '../components/CustomInput'
@@ -6,10 +6,12 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomCard from '../components/CustomCard';
 import Board from '../components/Board';
 import { loadData } from '../services/api';
+import ThemeContext from '../context/ThemeContext'
 
 
 const BookingScreen = ({ navigation }) => {
 
+    const Theme = useContext(ThemeContext)
     const [data, setData] = useState([])
 
     const loadingData = async () => {
@@ -24,9 +26,9 @@ const BookingScreen = ({ navigation }) => {
     )
 
     return (
-        <View style={styles.ViewStyle}>
-            <Text style={styles.TextHeader}>Let's Booking</Text>
-            <Board height='28%' key='input'>
+        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+            <Text style={[styles.TextHeader,{color:Theme.color}]}>Let's Booking</Text>
+            <Board height='28%' key='input' backgroundColor={Theme.backgroundcontainer}>
                 <View style={styles.InputContainer}>
                     <View style={styles.DateInput}>
                         <CustomInput width={280} text='Date' key='date' />
@@ -39,7 +41,7 @@ const BookingScreen = ({ navigation }) => {
                 </View>
             </Board>
             <View style={{ height: '5%' }}></View>
-            <Board height="55%" key='flatlist'>
+            <Board height="55%" key='flatlist'  backgroundColor={Theme.backgroundcontainer}>
                 <FlatList
                     data={data}
                     keyExtractor={(item) => item.id}
