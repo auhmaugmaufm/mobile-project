@@ -113,7 +113,7 @@ app.put('/Users/:id', async (req, res) => {
 
 app.get('/boardingpass', async (req, res) => {
     db.all(
-        `SELECT * FROM BoardingPass`,
+        `SELECT BoardingPass.* , CarType.type FROM BoardingPass LEFT JOIN CarType ON BoardingPass.id_carType=CarType.id`,
         (err, data) => {
             if (err) return res.status(500).send({ message: 'Something Wrong' })
             if (!data || data.length === 0) return res.status(404).send({ message: 'Data not found' })

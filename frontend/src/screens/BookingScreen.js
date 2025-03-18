@@ -45,7 +45,7 @@ const BookingScreen = ({ navigation }) => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate('Select')} >
+                            <TouchableOpacity onPress={() => navigation.navigate('Select', {item})} >
                                 <CustomCard props={item} />
                             </TouchableOpacity>
                         )

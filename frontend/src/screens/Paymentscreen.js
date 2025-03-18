@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet,Image } from "react-native";
 import CustomButton from "../components/CustomButton";
 
-const Payment = ({navigation}) => {
+const PaymentScreen = ({navigation}) => {
   
 
   return (
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Payment;
+export default PaymentScreen;
