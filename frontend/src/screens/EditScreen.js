@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,8 +7,11 @@ import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton';
 import Board from "../components/Board";
 import { editPhoneNumber } from "../services/api";
+import ThemeContext from '../context/ThemeContext'
 
 const EditScreen = ({ navigation }) => {
+    const Theme = useContext(ThemeContext)
+
 
     const [phoneNumber, setPhoneNubmer] = useState('')
     const [password, setPassword] = useState('')
@@ -46,14 +49,14 @@ const EditScreen = ({ navigation }) => {
 
 
     return (
-        <View style={styles.ViewStyle}>
+        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                 <TouchableOpacity onPress={() => navigation.navigate("SettingMain")}>
                     <MaterialIcons name="arrow-back" size={40} color="white" />
                 </TouchableOpacity>
-                <Text style={styles.TextHeader}>Setting</Text>
+                <Text style={[styles.TextHeader,{color:Theme.color}]}>Setting</Text>
             </View>
-            <Board height="50%">
+            <Board height="50%"  backgroundColor={Theme.backgroundcontainer }>
                 <Text style={styles.TextStyle}>Edit</Text>
                 <View style={styles.container}>
                     <CustomInput
