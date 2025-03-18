@@ -1,11 +1,15 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import  ThemeContext  from '../context/ThemeContext';
+
 
 const BookingHistoryScreen = ({navigation}) => {
+    const Theme = useContext(ThemeContext);
+
     return (
-        <View style={styles.ViewStyle}>
-            <Text style={styles.TextHeader}>Booking History</Text>
+        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+            <Text style={[styles.TextHeader,{color:Theme.color}]}>Booking History</Text>
             <FlatList
                     // data={filteredGoods}
                     // keyExtractor={(item) => item.id.toString()}
