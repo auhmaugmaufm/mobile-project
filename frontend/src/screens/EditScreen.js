@@ -1,6 +1,6 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { AlertNotificationRoot , Dialog , ALERT_TYPE } from "react-native-alert-notification";
+import { AlertNotificationRoot, Dialog, ALERT_TYPE } from "react-native-alert-notification";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,20 +25,20 @@ const EditScreen = ({ navigation }) => {
             const id = await AsyncStorage.getItem('userId')
             await editPhoneNumber(id, phoneNumber, password);
             Dialog.show({
-                type:ALERT_TYPE.SUCCESS,
-                title:"Edit Success",
-                textBody:"You have edit successfully!",
-                button:"OK",
-                onPressButton: ()=>{
+                type: ALERT_TYPE.SUCCESS,
+                title: "Edit Success",
+                textBody: "You have edit successfully!",
+                button: "OK",
+                onPressButton: () => {
                     navigation.navigate("Home")
                 }
             })
         } catch (error) {
             Dialog.show({
-                type:ALERT_TYPE.WARNING,
-                title:"Edit Failed",
-                textBody:error.message,
-                button:"OK"
+                type: ALERT_TYPE.WARNING,
+                title: "Edit Failed",
+                textBody: error.message,
+                button: "OK"
             })
         }
     }
@@ -63,14 +63,14 @@ const EditScreen = ({ navigation }) => {
 
 
     return (
-        <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+        <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                 <TouchableOpacity onPress={() => navigation.navigate("SettingMain")}>
                     <MaterialIcons name="arrow-back" size={40} color="white" />
                 </TouchableOpacity>
-                <Text style={[styles.TextHeader,{color:Theme.color}]}>Setting</Text>
+                <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
             </View>
-            <Board height="50%"  backgroundColor={Theme.backgroundcontainer }>
+            <Board height="50%" backgroundColor={Theme.backgroundcontainer}>
                 <Text style={styles.TextStyle}>Edit</Text>
                 <View style={styles.container}>
                     <CustomInput
@@ -96,7 +96,7 @@ const EditScreen = ({ navigation }) => {
                     </View>
                 </View>
             </Board>
-            <AlertNotificationRoot/>
+            <AlertNotificationRoot />
         </View>
     )
 }

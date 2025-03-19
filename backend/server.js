@@ -40,12 +40,12 @@ db.run(`CREATE TABLE IF NOT EXISTS BookingHistory(
     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
     id_BoardingPass INTEGER,
     id_User INTEGER,
-    id_seat TEXT,
+    numberOfSeats INTEGER,
     FOREIGN KEY (id_BoardingPass) REFERENCES BoardingPass(id),
     FOREIGN KEY (id_User) REFERENCES Users(id)
 )`)
 
-// db.run(`DROP TABLE BoardingPass`)
+// db.run(`DROP TABLE BookingHistory`)
 
 db.run("PRAGMA foreign_keys = ON"); // เพิ่มการเชื่อม foreign key
 
@@ -75,7 +75,7 @@ app.post('/login', async (req, res) => {
                 return res.status(400).send({ message: 'Invalid Credential' })
             }
             const token = jwt.sign({ userId: user.id }, 'secretkey')
-            res.send({ token, userId: user.id , userName: user.name})
+            res.send({ token, userId: user.id, userName: user.name })
         }
 
     )
@@ -168,10 +168,12 @@ app.post('/boardingpass', async (req, res) => {
 })
 
 app.post('/bookinghistory', async (req, res) => {
-    const { id_boardingPass, userId, id_seat } = req.body
+    const { id_boardingPass, userId, numberOfSeats } = req.body
+    console.log('POST: booking', id_boardingPass, userId, numberOfSeats);
+
     db.run(
-        `INSERT INTO BookingHistory (id_BoardingPass, id_User, id_seat) VALUES (?, ?, ?)`,
-        [id_boardingPass, userId, id_seat],
+        `INSERT INTO BookingHistory (id_BoardingPass, id_User, numberOfSeats) VALUES (?, ?, ?)`,
+        [id_boardingPass, userId, numberOfSeats],
         function (error) {
             if (error) return res.status(400).send({ message: 'Seat already exists' })
             res.send({ message: 'Seat registered' })
@@ -195,11 +197,11 @@ app.get('/bookinghistory/:id', async (req, res) => {
     const { id } = req.params
     db.all(
         `SELECT 
-            BookingHistory.id,
+            BookingHistory.*,
             BoardingPass.start,
-            BoardingPass.end,
-            BoardingPass.time,
-            BoardingPass.date,
+			BoardingPass.end,
+			BoardingPass.date,
+			BoardingPass.time,
             Users.name, 
             Users.phoneNumber,
             CarType.type AS carType

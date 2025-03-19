@@ -1,11 +1,12 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { signUp } from "../services/api";
 import ThemeContext from '../context/ThemeContext'
-import { AlertNotificationRoot , Dialog , ALERT_TYPE } from "react-native-alert-notification";
+import { AlertNotificationRoot, Dialog, ALERT_TYPE } from "react-native-alert-notification";
+import Board from "../components/Board";
 
 const SignUp = ({ navigation }) => {
 
@@ -97,59 +98,61 @@ const SignUp = ({ navigation }) => {
     <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.TextContainer}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10%' }}>
-          <Text style={[styles.TextHead,{color:Theme.color}]}>Create account</Text>
+          <Text style={[styles.TextHead, { color: Theme.color }]}>Create account</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <MaterialIcons name="home" size={40} color="white" />
+            <MaterialIcons name="home" size={40} color={Theme.color} />
           </TouchableOpacity>
         </View>
-        <Text style={[styles.TextSub,{color:Theme.color}]}>Sign up to get started!</Text>
+        <Text style={[styles.TextSub, { color: Theme.color }]}>Sign up to get started!</Text>
       </View>
 
-      <View style={[styles.container, { backgroundColor: Theme.backgroundcontainer }]}>
-        <CustomInput
-          width={280}
-          text="Name"
-          onChangeText={(value) => handdleChange('name', value)}
-          onBlur={() => validateField('name', name)}
-          style={styles.inputContainer}
-        />
-        {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
-        <CustomInput
-          width={280}
-          text="Password"
-          onChangeText={(value) => handdleChange('password', value)}
-          onBlur={() => validateField('password', password)}
-          secureTextEntry={true}
-        />
-        {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
-        <CustomInput
-          width={280}
-          text="Confirm Password"
-          onChangeText={(value) => handdleChange('confirmPassword', value)}
-          onBlur={() => validateField('confirmPassword', confirmPassword)}
-          secureTextEntry={true}
-        />
-        {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
-        <CustomInput
-          width={280}
-          text="Phone Number"
-          onChangeText={(value) => handdleChange('phoneNumber', value)}
-          onBlur={() => validateField('phoneNumber', phoneNumber)}
-        />
-        {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> : null}
-        <View style={styles.buttonSize}>
-          <CustomButton
-            title='Sign Up'
-            backgroundColor='#FEC941'
-            color='white'
-            onPress={checkSubmit} />
+      <Board height={400} backgroundColor={Theme.backgroundcontainer}>
+        <View style={styles.container}>
+          <CustomInput
+            width={280}
+            text="Name"
+            onChangeText={(value) => handdleChange('name', value)}
+            onBlur={() => validateField('name', name)}
+            style={styles.inputContainer}
+          />
+          {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
+          <CustomInput
+            width={280}
+            text="Password"
+            onChangeText={(value) => handdleChange('password', value)}
+            onBlur={() => validateField('password', password)}
+            secureTextEntry={true}
+          />
+          {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+          <CustomInput
+            width={280}
+            text="Confirm Password"
+            onChangeText={(value) => handdleChange('confirmPassword', value)}
+            onBlur={() => validateField('confirmPassword', confirmPassword)}
+            secureTextEntry={true}
+          />
+          {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
+          <CustomInput
+            width={280}
+            text="Phone Number"
+            onChangeText={(value) => handdleChange('phoneNumber', value)}
+            onBlur={() => validateField('phoneNumber', phoneNumber)}
+          />
+          {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> : null}
+          <View style={styles.buttonSize}>
+            <CustomButton
+              title='Sign Up'
+              backgroundColor='#FEC941'
+              color='white'
+              onPress={checkSubmit} />
+          </View>
         </View>
-      </View>
+      </Board>
 
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
-        <Text style={styles.TextFooter}>Already member ? </Text>
+        <Text style={[styles.TextFooter, { color: Theme.color }]}>Already member ? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }]}>Login</Text>
+          <Text style={[styles.TextFooter, { fontWeight: 'bold', fontStyle: 'italic' }, { color: Theme.color }]}>Login</Text>
         </TouchableOpacity>
       </View>
       <AlertNotificationRoot />
@@ -180,11 +183,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    width: "80%",
-    height: "55%",
-    backgroundColor: "#EEEEEE",
-    marginLeft: "10%",
-    borderRadius: 18,
     padding: 20,
     // marginTop: 5,
   },

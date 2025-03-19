@@ -57,3 +57,16 @@ export const loadHistory = async (id) => {
     }
 }
 
+export const seatBooking = async (id_boardingPass, userId, numberOfSeats) => {
+    try {
+        const response = await axios.post(`${API_URL}/bookinghistory`,{
+            id_boardingPass,
+            userId,
+            numberOfSeats
+        })
+        return response
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Booking Error')
+    }
+}
+

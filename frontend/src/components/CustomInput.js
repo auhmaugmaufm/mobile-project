@@ -1,26 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
+import ThemeContext from "../context/ThemeContext";
 
-const CustomInput = ({width, text, value, onChangeText, keyboardType ,secureTextEntry}) => {
+const CustomInput = ({ width, text, value, onChangeText, keyboardType, secureTextEntry }) => {
+    const Theme = useContext(ThemeContext)
     return (
         <View>
-            <TextInput style={[styles.input, { width }]} placeholderTextColor="white" placeholder={text} value={value} onChangeText={onChangeText} keyboardType={keyboardType} secureTextEntry={secureTextEntry}/>
+            <TextInput style={[styles.input, { width }]} placeholderTextColor="white" placeholder={text} value={value} onChangeText={onChangeText} keyboardType={keyboardType} secureTextEntry={secureTextEntry} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     input: {
-        borderWidth: 1,
+        // borderWidth: 1,
         borderColor: 'black',
-        // borderRadius: 10,
+        borderRadius: 7,
         padding: 10,
         fontSize: 18,
         marginTop: 15,
         alignItems: 'center',
-        backgroundColor: '#1E535F',
+        backgroundColor: '#BFBFBF',
         maxHeight: 50,
-        color: 'white',
+        color:"white"
     }
 });
 

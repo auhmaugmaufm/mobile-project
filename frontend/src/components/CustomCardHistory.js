@@ -2,17 +2,16 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
 const CustomCardHistory = ({ props }) => {
-    const { start, end, time, carType, id_seat, date } = props
+    const { start, end, time, carType, numberOfSeats, date } = props
     return (
         <View style={styles.Container}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View >
                 <Text style={styles.Text}>{start}📍</Text>
-                <Text style={styles.Text}>{time} น.</Text>
-            </View>
-            <View>
                 <Text style={styles.Text}>{end}</Text>
                 <Text style={styles.Text}>{carType}</Text>
                 <Text style={styles.Text}>{date}</Text>
+                <Text style={styles.Text}>{time} น.</Text>
+                <Text style={styles.Text}>Seats: {numberOfSeats}</Text>
             </View>
         </View>
     )
