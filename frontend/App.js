@@ -1,11 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer,DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { EventRegister } from 'react-native-event-listeners'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HomeScreen from "./src/screens/HomeScreen";
 import SignUp from "./src/screens/SignUp";
@@ -36,7 +36,7 @@ const StackSettingScreen = () => {
 
 const StackBookingScreen = () => {
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <BookingStack.Navigator screenOptions={{ headerShown: false }}>
                 <BookingStack.Screen name="BookingMain" component={BookingScreen} />
                 <BookingStack.Screen name="Select" component={SelectScreen} />
@@ -73,14 +73,16 @@ const Tabs = () => {
 const App = () => {
     const [darkMode, setDarkMode] = useState(false);
 
-    useEffect(()=>{
+
+    useEffect(() => {
         const listener = EventRegister.addEventListener('ChangeTheme', (data) => {
             setDarkMode(data)
             console.log(data)
-    })
-    return ()=> {
-        EventRegister.removeAllListeners(listener)
-    }},[darkMode])
+        })
+        return () => {
+            EventRegister.removeAllListeners(listener)
+        }
+    }, [])
 
     return (
         <ThemeContext.Provider value={darkMode == true ? Theme.dark : Theme.light}>

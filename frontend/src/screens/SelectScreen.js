@@ -1,23 +1,63 @@
-import React from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Board from "../components/Board";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import DropdownComponent from "../components/Dropdown";
+import { seatBooking } from "../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
+import ThemeContext from '../context/ThemeContext';
+
+
 
 const SelectScreen = ({ navigation, route }) => {
+
+  const Theme = useContext(ThemeContext)
+
   const { item } = route.params
-  const { start, end, time, date, type, Cost } = item
+  const { start, end, time, date, type, Cost, id } = item
+
+  const [summary, setSummary] = useState(0)
+  const [numberOfSeat, setNumberOfSeat] = useState(0)
+
+  const calSummary = () => {
+    setSummary(numberOfSeat * Cost)
+  }
+
+  const handleBooking = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId')
+      const res = await seatBooking(id, userId, numberOfSeat)
+      navigation.navigate('Payment')
+      // return res.status
+    } catch (error) {
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Login Failed',
+        textBody: error.message,
+        button: 'OK'
+      });
+    }
+  }
+
+  useEffect(() => {
+    calSummary()
+  }, [numberOfSeat])
+
+  const num = [
+    '1', '2', '3', '4'
+  ]
 
   return (
-    <View style={styles.ViewStyle}>
+    <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
       <View style={styles.TextStyle}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10,  }}>
           <TouchableOpacity onPress={() => navigation.navigate("BookingMain")}>
-            <MaterialIcons name="arrow-back" size={40} color="white" />
+            <MaterialIcons name="arrow-back" size={40} color={Theme.color} />
           </TouchableOpacity>
-          <Text style={styles.TextHead}>Booking</Text>
+          <Text style={[styles.TextHead,{color:Theme.color}]}>Booking</Text>
         </View>
       </View>
       <Board height={"80%"} backgroundColor='white'>
@@ -43,15 +83,15 @@ const SelectScreen = ({ navigation, route }) => {
             <Text style={styles.TextSub}>{type}</Text>
           </View>
           <View>
-            <DropdownComponent name='Select Seat' />
+            <DropdownComponent name='Select Seat' rawData={num} onSelect={setNumberOfSeat} />
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Summary</Text>
-            <Text style={styles.TextSub}>total ...</Text>
+            <Text style={styles.TextSub}>{summary}</Text>
           </View>
         </View>
         <View style={styles.ButtonStyle}>
-          <CustomButton backgroundColor='green' title='Done' color='white' onPress={() => navigation.navigate('Payment')} />
+          <CustomButton backgroundColor='green' title='Done' color='white' onPress={handleBooking} />
         </View>
       </Board>
     </View>

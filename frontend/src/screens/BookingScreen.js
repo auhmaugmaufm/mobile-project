@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback,useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import CustomInput from '../components/CustomInput'
@@ -8,8 +8,12 @@ import Board from '../components/Board';
 import { loadData } from '../services/api';
 import DropdownComponent from '../components/Dropdown';
 import CustomButton from '../components/CustomButton';
+import themeContext from '../context/ThemeContext';
+
 
 const BookingScreen = ({ navigation }) => {
+
+    const Theme = useContext(themeContext)
 
     const [data, setData] = useState([])
     const [start, setStart] = useState([])
@@ -32,7 +36,7 @@ const BookingScreen = ({ navigation }) => {
     }
 
     const load = () => {
-        console.log('loading data');
+        // console.log('loading data');
         const uniqueStarts = [...new Set(data.map(item => item.start))];
         const uniqueEnds = [...new Set(data.map(item => item.end))];
         const uniqueDates = [...new Set(data.map(item => item.date))];
@@ -52,8 +56,8 @@ const BookingScreen = ({ navigation }) => {
     }, [data])
 
     return (
-        <View style={styles.ViewStyle}>
-            <Text style={styles.TextHeader}>Let's Booking</Text>
+        <View style={[styles.ViewStyle,{ backgroundColor: Theme.backgroundColor}]}>
+            <Text style={[styles.TextHeader,{color:Theme.color}]}>Let's Booking</Text>
             <Board height='30%' key='input' backgroundColor='white'>
                 <View style={{ padding: 10 }}>
                     <DropdownComponent name='Choose Date' rawData={date} onSelect={setSelectedDate} key='date' />
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     ViewStyle: {
         paddingTop: 60,
         flex: 1,
-        backgroundColor: '#1E535F',
+        // backgroundColor: '#1E535F',
     },
     InputContainer: {
         width: "100%",

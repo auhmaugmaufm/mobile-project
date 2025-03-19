@@ -7,6 +7,7 @@ import { logIn } from "../services/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
 import ThemeContext from '../context/ThemeContext';
+import Board from "../components/Board";
 
 const Login = ({ navigation }) => {
 
@@ -49,20 +50,22 @@ const Login = ({ navigation }) => {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '10%' }}>
           <Text style={[styles.TextHead, { color: Theme.color }]}>Log in</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <MaterialIcons name="home" size={40} color="white" />
+            <MaterialIcons name="home" size={40} color={Theme.color} />
           </TouchableOpacity>
         </View>
 
         <Text style={[styles.TextSub, { color: Theme.color }]}>Enter your credential to continue</Text>
       </View>
 
-      <View style={styles.container}>
-        <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} />
-        <CustomInput width={280} text="Password" secureTextEntry={true} onChangeText={setPassword} value={password} />
-        <View style={styles.buttonSize}>
-          <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={handleLogin} />
+      <Board height={280} backgroundColor={Theme.backgroundcontainer}>
+        <View style={styles.container}>
+          <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} />
+          <CustomInput width={280} text="Password" secureTextEntry={true} onChangeText={setPassword} value={password} />
+          <View style={styles.buttonSize}>
+            <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='white' onPress={handleLogin} />
+          </View>
         </View>
-      </View>
+      </Board>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <Text style={[styles.TextFooter, { color: Theme.color }]}>Don't have an account ?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
   ViewStyle: {
     paddingTop: 92,
     flex: 1,
-    backgroundColor: "#1E535F",
+    // backgroundColor: "#1E535F",
   },
   TextHead: {
     fontWeight: "bold",
@@ -99,7 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "80%",
     height: "35%",
-    backgroundColor: "#EEEEEE",
     marginLeft: "10%",
     borderRadius: 18,
     padding: 20,

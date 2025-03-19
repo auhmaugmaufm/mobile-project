@@ -9,6 +9,7 @@ import { loadHistory } from '../services/api';
 import CustomCardHistory from '../components/CustomCardHistory';
 
 
+
 const BookingHistoryScreen = ({ navigation }) => {
     const Theme = useContext(ThemeContext);
     const [data, setData] = useState([])
@@ -17,9 +18,9 @@ const BookingHistoryScreen = ({ navigation }) => {
         const id = await AsyncStorage.getItem('userId')
         const res = await loadHistory(id);
         setData(res)
-    }
 
-    console.log(data);
+    }
+    // console.log(data);
 
     useFocusEffect(
         useCallback(() => {
@@ -28,15 +29,15 @@ const BookingHistoryScreen = ({ navigation }) => {
     )
 
     return (
-        <View style={styles.ViewStyle}>
-            <Text style={styles.TextHeader}>Booking History</Text>
-            <Board height={"80%"} backgroundColor="white">
+        <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
+            <Text style={[styles.TextHeader,{color:Theme.color}]}>Booking History</Text>
+            <Board height={"90%"} backgroundColor={Theme.backgroundcontainer} >
                 <FlatList
                     data={data}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <CustomCardHistory props={item} />
+                            <CustomCardHistory key={item.id} props={item} />
                         )
                     }}
                 />

@@ -1,24 +1,43 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Text, Switch, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, Text, Switch } from 'react-native'
 import { EventRegister } from 'react-native-event-listeners'
-import ThemeContext from '../context/ThemeContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-
-const CustomToggle = ({ title, backgroundColor, color,value  }) => {
+const CustomToggle = ({ title, backgroundColor, color }) => {
     const [isEnabled, setIsEnabled] = useState(false);
+
+    const setDarkMode= async (value) => {
+        await AsyncStorage.setItem('darkMode', value.toString())
+    }
+
+    const handleToggle = () => {
+        const newValue = !isEnabled;
+        setIsEnabled(newValue)
+        EventRegister.emit('ChangeTheme', newValue)
+        setDarkMode(newValue)
+    }
+
+    useEffect(() => {
+        const loadData = async () => {
+            const storedDarkMode = await AsyncStorage.getItem('darkMode');
+            if (storedDarkMode === 'true') {
+                setIsEnabled(true);
+            } else {
+                setIsEnabled(false);
+            }
+        };
+        loadData();
+    }, []) 
+
     return (
         <View style={[styles.Button, { backgroundColor }]}>
-            
             <View>
                 <Text style={[styles.Text, { color }]}>{title}</Text>
             </View>
             <View>
                 <Switch
                     value={isEnabled}
-                    onValueChange={(value) => {
-                        setIsEnabled(value)
-                        EventRegister.emit('ChangeTheme', value)}}
-
+                    onValueChange={handleToggle}
                 />
             </View>
         </View>
@@ -27,14 +46,12 @@ const CustomToggle = ({ title, backgroundColor, color,value  }) => {
 
 const styles = StyleSheet.create({
     Text: {
-        //textAlign: 'center',
         color: 'white',
         fontSize: 33,
         fontWeight: 'bold'
     },
     Button: {
         padding: 10,
-        //alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 25,
         height: '100%',
