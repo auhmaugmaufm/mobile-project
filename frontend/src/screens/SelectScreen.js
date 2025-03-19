@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Board from "../components/Board";
@@ -26,20 +26,19 @@ const SelectScreen = ({ navigation, route }) => {
     setSummary(numberOfSeat * Cost)
   }
 
-  const handleBooking = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('userId')
-      const res = await seatBooking(id, userId, numberOfSeat)
-      navigation.navigate('Payment')
-      // return res.status
-    } catch (error) {
+  const handleDone = () => {
+    if (summary === 0) {
       Dialog.show({
-        type: ALERT_TYPE.WARNING,
-        title: 'Login Failed',
-        textBody: error.message,
+        type: ALERT_TYPE.DANGER,
+        title: 'Failed',
+        textBody: 'LETS SELECT THAT SEAT IF YOU WANNA SIT :)',
         button: 'OK'
       });
     }
+    else {
+      navigation.navigate('Payment', { id, numberOfSeat })
+    }
+
   }
 
   useEffect(() => {
@@ -51,13 +50,13 @@ const SelectScreen = ({ navigation, route }) => {
   ]
 
   return (
-    <View style={[styles.ViewStyle,{backgroundColor:Theme.backgroundColor}]}>
+    <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.TextStyle}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10,  }}>
-          <TouchableOpacity onPress={() => navigation.navigate("BookingMain")}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <MaterialIcons name="arrow-back" size={40} color={Theme.color} />
           </TouchableOpacity>
-          <Text style={[styles.TextHead,{color:Theme.color}]}>Booking</Text>
+          <Text style={[styles.TextHead, { color: Theme.color }]}>Booking</Text>
         </View>
       </View>
       <Board height={"80%"} backgroundColor='white'>
@@ -87,11 +86,11 @@ const SelectScreen = ({ navigation, route }) => {
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Summary</Text>
-            <Text style={styles.TextSub}>{summary}</Text>
+            <Text style={styles.TextSub}>{summary} ฿</Text>
           </View>
         </View>
         <View style={styles.ButtonStyle}>
-          <CustomButton backgroundColor='green' title='Done' color='white' onPress={handleBooking} />
+          <CustomButton backgroundColor='green' title='Submit' color='white' onPress={handleDone} />
         </View>
       </Board>
     </View>

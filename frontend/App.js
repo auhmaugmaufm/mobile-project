@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +6,7 @@ import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { EventRegister } from 'react-native-event-listeners'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from "./src/screens/HomeScreen";
 import SignUp from "./src/screens/SignUp";
@@ -18,6 +19,7 @@ import SelectScreen from './src/screens/SelectScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
 import Theme from './src/context/Them';
 import ThemeContext from './src/context/ThemeContext';
+import themeContext from './src/context/ThemeContext';
 
 // สร้าง Stack Navigator และ Tab Navigator
 const Stack = createNativeStackNavigator();
@@ -25,14 +27,6 @@ const Tab = createBottomTabNavigator();
 const SettingStack = createNativeStackNavigator();
 const BookingStack = createNativeStackNavigator();
 
-const StackSettingScreen = () => {
-    return (
-        <SettingStack.Navigator screenOptions={{ headerShown: false }}>
-            <SettingStack.Screen name="SettingMain" component={SettingScreen} />
-            <SettingStack.Screen name="Edit" component={EditScreen} />
-        </SettingStack.Navigator>
-    )
-}
 
 const StackBookingScreen = () => {
     return (
@@ -40,16 +34,33 @@ const StackBookingScreen = () => {
             <BookingStack.Navigator screenOptions={{ headerShown: false }}>
                 <BookingStack.Screen name="BookingMain" component={BookingScreen} />
                 <BookingStack.Screen name="Select" component={SelectScreen} />
-                <BookingStack.Screen name="Payment" component={PaymentScreen} />
             </BookingStack.Navigator>
         </View>
     )
 }
 
 const Tabs = () => {
+    const Theme = useContext(themeContext);
     return (
         <Tab.Navigator
-            screenOptions={{ headerShown: false }}
+
+            initialRouteName="Booking"
+            screenOptions={({ route }) => ({
+                tabBarStyle: { backgroundColor: Theme.backgroundNavbar },
+                tabBarActiveTintColor: Theme.colorActiveIcon,
+                tabBarInactiveTintColor: Theme.colorInactiveIcon,
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+                    if (route.name === 'Booking') {
+                        iconName = 'bus-outline';
+                    } else if (route.name === 'Setting') {
+                        iconName = 'settings-outline';
+                    } else {
+                        iconName = 'ticket-outline'
+                    }
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                }
+            })}
         >
             <Tab.Screen
                 name="Booking"
@@ -63,7 +74,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="Setting"
-                component={StackSettingScreen}
+                component={SettingScreen}
                 options={{ title: 'Setting', headerShown: false }}
             />
         </Tab.Navigator>
@@ -92,6 +103,8 @@ const App = () => {
                     <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                     <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
+                    <Stack.Screen name="Payment" component={PaymentScreen} />
+                    <Stack.Screen name="Edit" component={EditScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </ThemeContext.Provider>

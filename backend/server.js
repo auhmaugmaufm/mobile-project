@@ -113,6 +113,28 @@ app.put('/Users/:id', async (req, res) => {
         })
 })
 
+app.put('/user/edit-password/:id', async (req, res) => {
+    const { id } = req.params;
+    const { password, newPassword } = req.body;
+    const encryptedPassword = await bcrypt.hash(password, 10)
+    console.log("PUT: ", id, password, newPassword)
+    db.get(
+        `SELECT * FROM Users WHERE id = ?`, [id],
+        async (err, user) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!(await bcrypt.compare(password, user.password))) {
+                return res.status(404).send({ message: 'Incorrect Password' })
+            }
+            db.run(
+                `UPDATE Users SET password = ? WHERE id = ?`, [encryptedPassword, id],
+                (err) => {
+                    if (err) return res.status(500).send({ message: 'Phone Number already exists' })
+                    res.send({ message: 'Update Succesfully!' })
+                }
+            )
+        })
+})
+
 
 
 app.get('/boardingpass', async (req, res) => {

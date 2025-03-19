@@ -11,7 +11,7 @@ const SettingScreen = ({ navigation }) => {
     return (
         <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
             <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
-            <Board height='50%' backgroundColor={Theme.backgroundcontainer}>
+            <Board height='300' backgroundColor={Theme.backgroundcontainer}>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <View style={styles.buttonSize}>
                         <CustomToggle title='Dark Mode' backgroundColor='#ccc' color='white' />

@@ -65,12 +65,12 @@ const EditScreen = ({ navigation }) => {
     return (
         <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                <TouchableOpacity onPress={() => navigation.navigate("SettingMain")}>
-                    <MaterialIcons name="arrow-back" size={40} color="white" />
+                <TouchableOpacity onPress={() => navigation.navigate("Navbar", {screen: 'Setting'})}>
+                    <MaterialIcons name="arrow-back" size={40} color={Theme.color} />
                 </TouchableOpacity>
                 <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
             </View>
-            <Board height="50%" backgroundColor={Theme.backgroundcontainer}>
+            <Board height="350" backgroundColor={Theme.backgroundcontainer}>
                 <Text style={styles.TextStyle}>Edit</Text>
                 <View style={styles.container}>
                     <CustomInput
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
         paddingTop: 60,
         flex: 1,
         backgroundColor: "#1E535F",
+        height: 900
         // alignItems: 'center'
     },
     TextStyle: {

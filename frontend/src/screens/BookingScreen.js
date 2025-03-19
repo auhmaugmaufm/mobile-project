@@ -58,7 +58,7 @@ const BookingScreen = ({ navigation }) => {
     return (
         <View style={[styles.ViewStyle,{ backgroundColor: Theme.backgroundColor}]}>
             <Text style={[styles.TextHeader,{color:Theme.color}]}>Let's Booking</Text>
-            <Board height='30%' key='input' backgroundColor='white'>
+            <Board height='30%' key='input' backgroundColor='white' >
                 <View style={{ padding: 10 }}>
                     <DropdownComponent name='Choose Date' rawData={date} onSelect={setSelectedDate} key='date' />
                     <DropdownComponent name='Choose Start' rawData={start} onSelect={setSelectedStart} key='start' />
