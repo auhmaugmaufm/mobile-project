@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://10.34.95.233:5000';
+const API_URL = 'http://10.34.122.149:5000';
 
 export const signUp = async (name, password, phoneNumber) => {
     try {
@@ -82,3 +82,24 @@ export const seatBooking = async (id_boardingPass, userId, numberOfSeats) => {
     }
 }
 
+export const loadSeat = async (id) => {
+    try {
+        const response = await axios.get(`${API_URL}/boardingpass/${id}/seatleft`,{
+            id
+        })
+        return response.data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Loading Error')
+    }
+}
+
+export const editStatus = async (id) => {
+    try {
+        const response = await axios.put(`${API_URL}/boardingpass/edit-status/${id}`,{
+            id
+        })
+        return response.data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Edtting Error')
+    }
+}

@@ -1,18 +1,17 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import Board from "./Board"
 
 const CustomCardHistory = ({ props }) => {
     const { start, end, time, carType, numberOfSeats, date } = props
     return (
         <View style={styles.Container}>
-            <View >
-                <Text style={styles.Text}>{start}📍</Text>
-                <Text style={styles.Text}>{end}</Text>
-                <Text style={styles.Text}>{carType}</Text>
-                <Text style={styles.Text}>{date}</Text>
-                <Text style={styles.Text}>{time} น.</Text>
-                <Text style={styles.Text}>Seats: {numberOfSeats}</Text>
-            </View>
+            <Text style={styles.Text}>Start: {start}</Text>
+            <Text style={styles.Text}>End: {end}</Text>
+            <Text style={styles.Text}>Car: {carType}</Text>
+            <Text style={styles.Text}>Date: {date}</Text>
+            <Text style={styles.Text}>Time: {time} น.</Text>
+            <Text style={styles.Text}>Seats: {numberOfSeats}</Text>
         </View>
     )
 }
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 4,
         margin: 15,
-        padding: 25
+        padding: 25,
     },
     Text: {
         fontWeight: 'bold',

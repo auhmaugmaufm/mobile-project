@@ -30,7 +30,7 @@ const BookingHistoryScreen = ({ navigation }) => {
 
     return (
         <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
-            <Text style={[styles.TextHeader,{color:Theme.color}]}>Booking History</Text>
+            <Text style={[styles.TextHeader, { color: Theme.color }]}>Booking History</Text>
             <Board height={"90%"} backgroundColor={Theme.backgroundcontainer} >
                 <FlatList
                     data={data}
@@ -42,6 +42,7 @@ const BookingHistoryScreen = ({ navigation }) => {
                     }}
                 />
             </Board>
+            <Text style={{ position: 'absolute', top: 80, right: 15, fontSize: 50, transform: [{ rotate: '30deg' }] }}>🚗</Text>
         </View>
     )
 }

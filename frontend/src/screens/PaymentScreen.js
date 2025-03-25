@@ -1,19 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import CustomButton from "../components/CustomButton";
 import ThemeContext from "../context/ThemeContext";
 import Board from "../components/Board";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { seatBooking } from "../services/api";
+import { editStatus, loadSeat, seatBooking } from "../services/api";
 
 
 const PaymentScreen = ({ navigation, route }) => {
   const Theme = useContext(ThemeContext);
   const { id, numberOfSeat } = route.params
+  const [data, setData] = useState({})
 
   const handleBooking = async () => {
     try {
+      let totalSeats = ((data.totalSeat ?? 0) + parseInt(numberOfSeat))
+      if (data.seat == totalSeats) {
+        await editStatus(id)
+      }
       const userId = await AsyncStorage.getItem('userId')
       await seatBooking(id, userId, numberOfSeat)
       navigation.navigate("Navbar", { screen: 'BookingHistory' })
@@ -26,6 +31,16 @@ const PaymentScreen = ({ navigation, route }) => {
       });
     }
   }
+
+
+  useEffect(() => {
+    const loadSeatData = async () => {
+      const res = await loadSeat(id)
+      setData(res)
+    }
+    loadSeatData()
+  }, [])
+  //console.log(data);
 
 
   return (

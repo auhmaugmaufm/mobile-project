@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 const CustomButton = ({ title, onPress, backgroundColor, color }) => {
     return (
         <TouchableOpacity
-            style={[styles.Button, { backgroundColor }]}
+            style={[styles.Button,styles.buttonStyle, { backgroundColor }]}
             onPress={onPress}>
             <Text style={[styles.Text, { color }]}>{title}</Text>
         </TouchableOpacity>
@@ -28,6 +28,13 @@ const styles = StyleSheet.create({
         height: '100%',
         marginTop: 25,
         width: '100%',
+    },
+    buttonStyle: {
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 1,
+        shadowRadius: 10,
+        elevation: 6,
     }
 })
 

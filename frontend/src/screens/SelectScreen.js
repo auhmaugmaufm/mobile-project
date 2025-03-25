@@ -9,7 +9,7 @@ import { seatBooking } from "../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
 import ThemeContext from '../context/ThemeContext';
-
+import { loadSeat } from "../services/api";
 
 
 const SelectScreen = ({ navigation, route }) => {
@@ -21,6 +21,13 @@ const SelectScreen = ({ navigation, route }) => {
 
   const [summary, setSummary] = useState(0)
   const [numberOfSeat, setNumberOfSeat] = useState(0)
+  const [data, setData] = useState({})
+
+  const loadSeatData = async () => {
+    const res = await loadSeat(id)
+    setData(res)
+  }
+  // console.log(data);
 
   const calSummary = () => {
     setSummary(numberOfSeat * Cost)
@@ -29,8 +36,8 @@ const SelectScreen = ({ navigation, route }) => {
   const handleDone = () => {
     if (summary === 0) {
       Dialog.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Failed',
+        type: ALERT_TYPE.WARNING,
+        title: 'Warning !',
         textBody: 'LETS SELECT THAT SEAT IF YOU WANNA SIT :)',
         button: 'OK'
       });
@@ -38,16 +45,24 @@ const SelectScreen = ({ navigation, route }) => {
     else {
       navigation.navigate('Payment', { id, numberOfSeat })
     }
-
   }
+
+  useEffect(() => {
+    loadSeatData()
+  }, [])
 
   useEffect(() => {
     calSummary()
   }, [numberOfSeat])
 
-  const num = [
-    '1', '2', '3', '4'
-  ]
+
+  let num = ['1', '2', '3', '4']
+  let x = data.seat - data.totalSeat
+  let seatl = []
+  for (let i = 1; i <= x; i++) {
+    seatl.push(i.toString())
+  }
+  // console.log(seatl);
 
   return (
     <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
@@ -82,7 +97,7 @@ const SelectScreen = ({ navigation, route }) => {
             <Text style={styles.TextSub}>{type}</Text>
           </View>
           <View>
-            <DropdownComponent name='Select Seat' rawData={num} onSelect={setNumberOfSeat} />
+            <DropdownComponent name='Select Seat' rawData={seatl.length > 4 ? num : seatl} onSelect={setNumberOfSeat} />
           </View>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Summary</Text>
@@ -93,6 +108,7 @@ const SelectScreen = ({ navigation, route }) => {
           <CustomButton backgroundColor='green' title='Submit' color='white' onPress={handleDone} />
         </View>
       </Board>
+      <AlertNotificationRoot/>
     </View>
   );
 };

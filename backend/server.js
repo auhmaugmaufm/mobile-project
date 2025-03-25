@@ -245,4 +245,40 @@ app.get('/bookinghistory/:id', async (req, res) => {
     )
 })
 
+app.get('/boardingpass/:id/seatleft', async (req, res) => {
+    const { id } = req.params
+    console.log('GET: ', id);
+    db.all(
+        `SELECT CarType.seat, SUM(numberOfSeats) AS totalSeat FROM BoardingPass 
+        LEFT JOIN BookingHistory ON BookingHistory.id_BoardingPass = BoardingPass.id
+        LEFT JOIN CarType ON BoardingPass.id_carType = CarType.id
+        WHERE BoardingPass.id = ?`, [id],
+        (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data) return res.status(404).send({ message: 'Data not found' })
+            res.send(data[0])
+        }
+    )
+
+})
+
+app.put('/boardingpass/edit-status/:id', async (req, res) => {
+    const { id } = req.params
+    console.log('PUT: edit status boarding pass id ', id);
+    db.get(
+        `SELECT * FROM BoardingPass WHERE id = ?`, [id],
+        async (err, data) => {
+            if (err) return res.status(500).send({ message: 'Something Wrong' })
+            if (!data) return res.status(404).send({ message: 'Data not found' })
+            db.run(
+                `UPDATE BoardingPass SET status = "Closed" WHERE id = ?`, [id],
+                (err) => {
+                    if (err) return res.status(500).send({ message: 'Update Failed' })
+                    res.send({ message: 'Update Succesfully!' })
+                }
+            )
+        })
+})
+
+
 app.listen(5000, () => console.log("Server running on port 5000"))
