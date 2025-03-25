@@ -116,7 +116,7 @@ app.put('/Users/:id', async (req, res) => {
 app.put('/user/edit-password/:id', async (req, res) => {
     const { id } = req.params;
     const { password, newPassword } = req.body;
-    const encryptedPassword = await bcrypt.hash(password, 10)
+    const encryptedPassword = await bcrypt.hash(newPassword, 10)
     console.log("PUT: ", id, password, newPassword)
     db.get(
         `SELECT * FROM Users WHERE id = ?`, [id],

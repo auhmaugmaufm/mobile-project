@@ -105,7 +105,7 @@ const SelectScreen = ({ navigation, route }) => {
           </View>
         </View>
         <View style={styles.ButtonStyle}>
-          <CustomButton backgroundColor='green' title='Submit' color='white' onPress={handleDone} />
+          <CustomButton borderColor='green' title='Submit' color='black' fontSize={25} onPress={handleDone} />
         </View>
       </Board>
       <AlertNotificationRoot/>

@@ -47,7 +47,7 @@ const CustomToggle = ({ title, backgroundColor, color }) => {
 const styles = StyleSheet.create({
     Text: {
         color: 'white',
-        fontSize: 33,
+        fontSize: 30,
         fontWeight: 'bold'
     },
     Button: {

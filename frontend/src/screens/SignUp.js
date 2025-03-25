@@ -40,7 +40,7 @@ const SignUp = ({ navigation }) => {
   }
 
   const validateField = (field, value) => {
-    let error = ''
+  let error = ''
     if (!value) {
       error = 'This field is required.'
     } else {
@@ -143,7 +143,8 @@ const SignUp = ({ navigation }) => {
             <CustomButton
               title='Sign Up'
               backgroundColor='#FEC941'
-              color='white'
+              color='black'
+              fontSize={25}
               onPress={checkSubmit} />
           </View>
         </View>

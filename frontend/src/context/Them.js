@@ -7,7 +7,8 @@ const Theme = {
         backgroundInput: 'f0ebe3',
         backgroundNavbar: '#D7C7AF',
         colorInactiveIcon: 'white',
-        colorActiveIcon: 'black'
+        colorActiveIcon: 'black',
+        borderColor: 'orange'
     },
     dark:{
         Theme: 'dark',
@@ -17,7 +18,8 @@ const Theme = {
         backgroundInput: '#1A1A1D',
         backgroundNavbar: 'gray',
         colorInactiveIcon: 'black',
-        colorActiveIcon: 'white'
+        colorActiveIcon: 'white',
+        borderColor: '#4D4D4D'
 
     },
    

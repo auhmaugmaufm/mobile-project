@@ -6,6 +6,8 @@ import Board from "../components/Board";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { editStatus, loadSeat, seatBooking } from "../services/api";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
+
 
 
 const PaymentScreen = ({ navigation, route }) => {
@@ -21,7 +23,15 @@ const PaymentScreen = ({ navigation, route }) => {
       }
       const userId = await AsyncStorage.getItem('userId')
       await seatBooking(id, userId, numberOfSeat)
-      navigation.navigate("Navbar", { screen: 'BookingHistory' })
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success!',
+        textBody: `Selected Seat Successfully`,
+        button: 'OK',
+        onPressButton: () => {
+          navigation.navigate('Navbar', { screen: 'BookingHistory' });
+        },
+      });
     } catch (error) {
       Dialog.show({
         type: ALERT_TYPE.WARNING,
@@ -59,10 +69,10 @@ const PaymentScreen = ({ navigation, route }) => {
           <Text style={[styles.TextTitle, { color: Theme.color, marginBottom: 10 }]}> Scan QR-code</Text>
         </Board>
         <View style={styles.buttonSize}>
-          <CustomButton title='Done' backgroundColor='#25A6C3' color='white' onPress={handleBooking} />
-
+          <CustomButton title='Done' backgroundColor='#25A6C3' color='black' fontSize={25} onPress={handleBooking} />
         </View>
       </View>
+      <AlertNotificationRoot />
     </View>
   );
 };

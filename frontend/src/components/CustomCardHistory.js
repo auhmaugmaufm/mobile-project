@@ -6,18 +6,18 @@ const CustomCardHistory = ({ props }) => {
     const { start, end, time, carType, numberOfSeats, date } = props
     return (
         <View style={styles.Container}>
-            <Text style={styles.Text}>Start: {start}</Text>
-            <Text style={styles.Text}>End: {end}</Text>
+            <Text style={styles.Text}>{start} - {end}</Text>
             <Text style={styles.Text}>Car: {carType}</Text>
             <Text style={styles.Text}>Date: {date}</Text>
             <Text style={styles.Text}>Time: {time} น.</Text>
-            <Text style={styles.Text}>Seats: {numberOfSeats}</Text>
+            <Text style={styles.Text}>Number of Seats: {numberOfSeats}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     Container: {
+        flex: 1,
         backgroundColor: "white",
         padding: 15,
         borderRadius: 10,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     Text: {
         fontWeight: 'bold',
         fontSize: 20,
-    },
+    }
 
 })
 

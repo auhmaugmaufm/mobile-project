@@ -19,10 +19,10 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={styles.ButtonContainer}>
                 <View style={styles.buttonSize}>
-                  <CustomButton title='Log In' backgroundColor='#d8b549' color='black' onPress={()=> navigation.navigate("Login")}/>  
+                  <CustomButton title='Log In' backgroundColor='#d8b549' color='black' fontSize={33} onPress={()=> navigation.navigate("Login")}/>  
                 </View>
                 <View style={styles.buttonSize}>
-                   <CustomButton title='Sign Up' backgroundColor='#d86e49' color='black' onPress={()=> navigation.navigate("SignUp")} /> 
+                   <CustomButton title='Sign Up' backgroundColor='#d86e49' color='black' fontSize={33} onPress={()=> navigation.navigate("SignUp")} /> 
                 </View>
                 
             </View>

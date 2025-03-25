@@ -11,16 +11,19 @@ const SettingScreen = ({ navigation }) => {
     return (
         <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
             <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
-            <Board height='300' backgroundColor={Theme.backgroundcontainer}>
+            <Board height='400' backgroundColor={Theme.backgroundcontainer}>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <View style={styles.buttonSize}>
-                        <CustomToggle title='Dark Mode' backgroundColor='#ccc' color='white' />
+                        <CustomToggle title='Dark Mode' backgroundColor='#ccc' fontSize={25}color='black' />
                     </View>
                     <View style={styles.buttonSize}>
-                        <CustomButton title='Edit Phone Number' backgroundColor='#FEC941' color='white' onPress={() => navigation.navigate("Edit")} />
+                        <CustomButton title='Edit Phone Number' backgroundColor='#FEC941' color='black' fontSize={25} onPress={() => navigation.navigate("Edit")} />
                     </View>
                     <View style={styles.buttonSize}>
-                        <CustomButton title='Logout' backgroundColor='red' color='white' onPress={() => navigation.navigate("Home")} />
+                        <CustomButton title='Edit Password' backgroundColor='#FEC941' color='black' fontSize={25} onPress={() => navigation.navigate("Edit-password")} />
+                    </View>
+                    <View style={styles.buttonSize}>
+                        <CustomButton title='Logout' backgroundColor='red' color='black' fontSize={25} onPress={() => navigation.navigate("Home")} />
                     </View>
                 </View>
             </Board>

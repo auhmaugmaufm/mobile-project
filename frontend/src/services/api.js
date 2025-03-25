@@ -41,7 +41,7 @@ export const editPhoneNumber = async (id, phoneNumber, password) => {
 
 export const editPassword = async (id, password, newPassword) => {
     try {
-        const response = await axios.put(`${API_URL}/user/edit-pasword/${id}`, {
+        const response = await axios.put(`${API_URL}/user/edit-password/${id}`, {
             password,
             newPassword
         })

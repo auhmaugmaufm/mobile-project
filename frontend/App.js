@@ -17,6 +17,8 @@ import Login from './src/screens/Login';
 import SettingScreen from './src/screens/SettingScreen';
 import SelectScreen from './src/screens/SelectScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
+import EditPasswordScreen from './src/screens/EditPasswordScreen';
+
 import Theme from './src/context/Them';
 import ThemeContext from './src/context/ThemeContext';
 import themeContext from './src/context/ThemeContext';
@@ -105,6 +107,7 @@ const App = () => {
                     <Stack.Screen name="Navbar" component={Tabs} options={{ headerShown: false }} />
                     <Stack.Screen name="Payment" component={PaymentScreen} />
                     <Stack.Screen name="Edit" component={EditScreen} />
+                    <Stack.Screen name="Edit-password" component={EditPasswordScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </ThemeContext.Provider>

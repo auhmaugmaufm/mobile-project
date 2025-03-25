@@ -71,7 +71,7 @@ const EditScreen = ({ navigation }) => {
                 <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
             </View>
             <Board height="350" backgroundColor={Theme.backgroundcontainer}>
-                <Text style={styles.TextStyle}>Edit</Text>
+                <Text style={styles.TextStyle}>Edit Phone Number</Text>
                 <View style={styles.container}>
                     <CustomInput
                         width={280}
@@ -89,7 +89,8 @@ const EditScreen = ({ navigation }) => {
                     <View style={styles.buttonSize}>
                         <CustomButton
                             title="Done"
-                            color="white"
+                            color="black"
+                            fontSize={25}
                             onPress={checkSubmit}
                             backgroundColor='#25A6C3'
                         />
