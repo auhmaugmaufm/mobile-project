@@ -32,7 +32,7 @@ const CustomToggle = ({ title, backgroundColor, color }) => {
     return (
         <View style={[styles.Button, { backgroundColor }]}>
             <View>
-                <Text style={[styles.Text, { color }]}>{title}</Text>
+                <Text style={[styles.Text, { color }]}>{title} </Text>
             </View>
             <View>
                 <Switch
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
         height: '100%',
         marginTop: 25,
         width: '100%',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems:'center'
     }
 })
 

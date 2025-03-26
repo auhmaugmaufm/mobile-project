@@ -8,7 +8,7 @@ const Theme = {
         backgroundNavbar: '#D7C7AF',
         colorInactiveIcon: 'white',
         colorActiveIcon: 'black',
-        borderColor: 'orange'
+        borderColor: '#e5bf84'
     },
     dark:{
         Theme: 'dark',

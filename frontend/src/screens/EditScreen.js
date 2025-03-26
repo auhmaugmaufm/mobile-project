@@ -14,11 +14,9 @@ import ThemeContext from '../context/ThemeContext'
 const EditScreen = ({ navigation }) => {
     const Theme = useContext(ThemeContext)
 
-
     const [phoneNumber, setPhoneNubmer] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState('')
-
 
     const handleEdit = async () => {
         try {
@@ -65,23 +63,26 @@ const EditScreen = ({ navigation }) => {
     return (
         <View style={[styles.ViewStyle, { backgroundColor: Theme.backgroundColor }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                <TouchableOpacity onPress={() => navigation.navigate("Navbar", {screen: 'Setting'})}>
+                <TouchableOpacity onPress={() => navigation.navigate("Navbar", { screen: 'Setting' })}>
                     <MaterialIcons name="arrow-back" size={40} color={Theme.color} />
                 </TouchableOpacity>
                 <Text style={[styles.TextHeader, { color: Theme.color }]}>Setting</Text>
             </View>
-            <Board height="350" backgroundColor={Theme.backgroundcontainer}>
+            <Board height="320" backgroundColor={Theme.backgroundcontainer}>
                 <Text style={styles.TextStyle}>Edit Phone Number</Text>
                 <View style={styles.container}>
                     <CustomInput
-                        width={280}
+                        width={260}
                         text="Edit Phone Number"
                         keyboardType='numeric'
-                        onChangeText={setPhoneNubmer}
+                        onChangeText={(value) => {
+                            setPhoneNubmer(value)
+                            setErrors('')
+                        }}
                     />
-                    {errors ? <Text style={styles.errorText}>{errors}</Text> : null}
+                    {errors ? <Text style={styles.errorText}>{errors}</Text> : <View style={{ marginTop: 18 }}></View>}
                     <CustomInput
-                        width={280}
+                        width={260}
                         text="Password"
                         secureTextEntry={true}
                         onChangeText={setPassword}
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
         marginTop: 2,
         // position: 'absolute'
         alignSelf: 'flex-start',
-        marginLeft: 5,
     },
 })
 

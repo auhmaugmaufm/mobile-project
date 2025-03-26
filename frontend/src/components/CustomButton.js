@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 10,
         borderColor: 'orange',
         shadowColor: "black",
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 1,
-        shadowRadius: 10,
-        elevation: 6,
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
     }
 })
 

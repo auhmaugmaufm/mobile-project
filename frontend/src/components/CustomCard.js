@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Board from './Board'
 
 const CustomCard = ({ props }) => {
-    const { start, end, time, status, type } = props
+    const { start, end, time, status, type, date } = props
     return (
         <View style={[styles.Container, { backgroundColor: status === 'On Booking' ? 'white' : '#DCDCDC' }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={styles.Text}>{start}📍</Text>
-                <Text style={styles.Text}>{time} น.</Text>
+                <Text style={styles.TextSub}>{time} น.</Text>
             </View>
-            <View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={styles.Text}>{end}</Text>
+                <Text style={styles.TextSub}>{date}</Text>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={styles.Text}>{type}</Text>
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
         margin: 5,
         shadowColor: "black",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 1,
+        shadowOpacity: 0.2,
         shadowRadius: 10,
         elevation: 4,
         margin: 15,
@@ -46,8 +47,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         color: 'white'
-       // justifyContent: 'center',
-        //alignItems: 'center'
     },
     StatusContainer: {
         padding: 5,
@@ -55,6 +54,10 @@ const styles = StyleSheet.create({
         width: 100,
         height: 30,
         alignItems: 'center'
+    },
+    TextSub: {
+        fontSize: 18,
+        fontWeight: '500'
     }
 })
 

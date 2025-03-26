@@ -74,7 +74,7 @@ const SelectScreen = ({ navigation, route }) => {
           <Text style={[styles.TextHead, { color: Theme.color }]}>Booking</Text>
         </View>
       </View>
-      <Board height={"80%"} backgroundColor='white'>
+      <Board height={700} backgroundColor='white'>
         <View style={{ padding: 10 }}>
           <View style={styles.TextBox}>
             <Text style={styles.TextTitle}>Start Point 📍</Text>

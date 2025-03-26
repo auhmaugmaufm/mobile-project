@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         padding: 10,
         fontSize: 18,
-        marginTop: 15,
         alignItems: 'center',
         backgroundColor: '#BFBFBF',
         maxHeight: 50,

@@ -45,14 +45,14 @@ db.run(`CREATE TABLE IF NOT EXISTS BookingHistory(
     FOREIGN KEY (id_User) REFERENCES Users(id)
 )`)
 
-// db.run(`DROP TABLE BookingHistory`)
+// db.run(`DELETE FROM BookingHistory WHERE id = 12`)
 
 db.run("PRAGMA foreign_keys = ON"); // เพิ่มการเชื่อม foreign key
 
 app.post('/signup', async (req, res) => {
     const { name, password, phoneNumber } = req.body
     const encryptedPassword = await bcrypt.hash(password, 10)
-    console.log("POST: ", name, password, phoneNumber)
+    console.log("POST: Register User: ", name, " PhoneNumber: ", phoneNumber)
 
     db.run(
         `INSERT INTO Users (name, password, phoneNumber) VALUES (?, ?, ?)`,
@@ -66,13 +66,13 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { phoneNumber, password } = req.body
-    console.log("POST: ", phoneNumber, password)
+    console.log("POST: Login PhoneNumber: ", phoneNumber)
     db.get(
         `SELECT * FROM Users WHERE phoneNumber = ?`, [phoneNumber],
         async (err, user) => {
-            if (err) return res.status(400).send({ message: 'Wrong Phone Number or Password' })
+            if (err) return res.status(400).send({ message: 'Server bad request' })
             if (!user || !(await bcrypt.compare(password, user.password))) {
-                return res.status(400).send({ message: 'Invalid Credential' })
+                return res.status(401).send({ message: 'Wrong Phone Number or Password' })
             }
             const token = jwt.sign({ userId: user.id }, 'secretkey')
             res.send({ token, userId: user.id, userName: user.name })
@@ -92,10 +92,10 @@ app.get('/Users', async (req, res) => {
     )
 })
 
-app.put('/Users/:id', async (req, res) => {
+app.put('/user/edit-phonenumber/:id', async (req, res) => {
     const { id } = req.params;
     const { phoneNumber, password } = req.body
-    console.log("PUT: ", id, phoneNumber)
+    console.log("PUT: Edit PhoneNumber from UserID : ", id, "PhoneNumber ", phoneNumber)
     db.get(
         `SELECT * FROM Users WHERE id = ?`, [id],
         async (err, user) => {
@@ -117,7 +117,7 @@ app.put('/user/edit-password/:id', async (req, res) => {
     const { id } = req.params;
     const { password, newPassword } = req.body;
     const encryptedPassword = await bcrypt.hash(newPassword, 10)
-    console.log("PUT: ", id, password, newPassword)
+    console.log("PUT: Edit Password from UserID :", id)
     db.get(
         `SELECT * FROM Users WHERE id = ?`, [id],
         async (err, user) => {
@@ -175,7 +175,7 @@ app.post('/cartype', async (req, res) => {
 
 app.post('/boardingpass', async (req, res) => {
     const data = req.body
-    console.log(data);
+    console.log("POST: BoardingPass", data);
     const s = data.map(() => `(?, ?, ?, ?, ?, ?, ?)`).join(', ')
     const values = data.flatMap(bp => [bp.start, bp.end, bp.date, bp.time, bp.status, bp.id_carType, bp.Cost])
 
@@ -191,8 +191,7 @@ app.post('/boardingpass', async (req, res) => {
 
 app.post('/bookinghistory', async (req, res) => {
     const { id_boardingPass, userId, numberOfSeats } = req.body
-    console.log('POST: booking', id_boardingPass, userId, numberOfSeats);
-
+    console.log('POST: Add Booking History from UserID: ', userId, ", BoardingPass ID: ", id_boardingPass, " Num of Seat: ",numberOfSeats);
     db.run(
         `INSERT INTO BookingHistory (id_BoardingPass, id_User, numberOfSeats) VALUES (?, ?, ?)`,
         [id_boardingPass, userId, numberOfSeats],
@@ -264,7 +263,7 @@ app.get('/boardingpass/:id/seatleft', async (req, res) => {
 
 app.put('/boardingpass/edit-status/:id', async (req, res) => {
     const { id } = req.params
-    console.log('PUT: edit status boarding pass id ', id);
+    console.log('PUT: edit status From BoardingPass ID: ', id);
     db.get(
         `SELECT * FROM BoardingPass WHERE id = ?`, [id],
         async (err, data) => {

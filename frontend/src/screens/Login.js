@@ -59,7 +59,8 @@ const Login = ({ navigation }) => {
 
       <Board height={280} backgroundColor={Theme.backgroundcontainer}>
         <View style={styles.container}>
-          <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} />
+          <CustomInput width={280} text="Phone Number" onChangeText={setPhoneNumber} value={phoneNumber} keyboardType='numeric' />
+          <View style={{ marginTop: 18 }}></View>
           <CustomInput width={280} text="Password" secureTextEntry={true} onChangeText={setPassword} value={password} />
           <View style={styles.buttonSize}>
             <CustomButtonLong title='Log in' backgroundColor='#FEC941' color='black' fontSize={25} onPress={handleLogin} />

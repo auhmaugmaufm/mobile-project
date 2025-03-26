@@ -18,7 +18,7 @@ const EditPasswordScreen = ({ navigation }) => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const [errors, setErrors] = useState({ password: '', newPassword: '', confirmnewPassword: '' })
 
-    const handdleChange = (field, value) => {
+    const handleChange = (field, value) => {
         switch (field) {
           case 'password':
             setPassword(value)
@@ -99,25 +99,26 @@ const EditPasswordScreen = ({ navigation }) => {
                 <Text style={styles.TextStyle}>Edit Password</Text>
                 <View style={styles.container}>
                     <CustomInput
-                        width={280}
+                        width={260}
                         text="Password"
-                        onChangeText={(value) => handdleChange('password', value)}
+                        secureTextEntry={true}
+                        onChangeText={(value) => handleChange('password', value)}
                         />
-                    {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+                    {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> :  <View style={{ marginTop: 18 }}></View>}
                     <CustomInput
-                        width={280}
+                        width={260}
                         text="New Password"
-                        ecureTextEntry={true}
-                        onChangeText={(value) => handdleChange('newPassword', value)}
+                        secureTextEntry={true}
+                        onChangeText={(value) => handleChange('newPassword', value)}
                         />
-                    {errors.newPassword ? <Text style={styles.errorText}>{errors.newPassword}</Text> : null}
+                    {errors.newPassword ? <Text style={styles.errorText}>{errors.newPassword}</Text> :  <View style={{ marginTop: 18 }}></View>}
                     <CustomInput
-                        width={280}
+                        width={260}
                         text="Confirm New Password"
                         secureTextEntry={true}
-                        onChangeText={(value) => handdleChange('confirmnewPassword', value)}
+                        onChangeText={(value) => handleChange('confirmnewPassword', value)}
                         />
-                    {errors.confirmnewPassword ? <Text style={styles.errorText}>{errors.confirmnewPassword}</Text> : null}
+                    {errors.confirmnewPassword ? <Text style={styles.errorText}>{errors.confirmnewPassword}</Text> : <View style={{ marginTop: 18 }}></View>}
                     <View style={styles.buttonSize}>
                         <CustomButton
                             title="Done"
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
         // position: 'absolute'
         alignSelf: 'flex-start',
-        marginLeft: 5,
+        
     },
 })
 

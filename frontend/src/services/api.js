@@ -20,7 +20,7 @@ export const logIn = async (phoneNumber,password) => {
         const response = await axios.post(`${API_URL}/login`, {
             phoneNumber,
             password
-        })
+        })   
         return response.data
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error logging In') 
@@ -29,7 +29,7 @@ export const logIn = async (phoneNumber,password) => {
 
 export const editPhoneNumber = async (id, phoneNumber, password) => {
     try {
-        const response = await axios.put(`${API_URL}/Users/${id}`, {
+        const response = await axios.put(`${API_URL}/user/edit-phonenumber/${id}`, {
             phoneNumber,
             password
         })

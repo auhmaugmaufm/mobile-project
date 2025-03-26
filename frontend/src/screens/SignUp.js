@@ -115,7 +115,7 @@ const SignUp = ({ navigation }) => {
             onBlur={() => validateField('name', name)}
             style={styles.inputContainer}
           />
-          {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
+          {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : <View style={{ marginTop: 18 }}></View>}
           <CustomInput
             width={280}
             text="Password"
@@ -123,7 +123,7 @@ const SignUp = ({ navigation }) => {
             onBlur={() => validateField('password', password)}
             secureTextEntry={true}
           />
-          {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+          {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> :  <View style={{ marginTop: 18 }}></View>}
           <CustomInput
             width={280}
             text="Confirm Password"
@@ -131,14 +131,15 @@ const SignUp = ({ navigation }) => {
             onBlur={() => validateField('confirmPassword', confirmPassword)}
             secureTextEntry={true}
           />
-          {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
+          {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> :  <View style={{ marginTop: 18 }}></View>}
           <CustomInput
             width={280}
             text="Phone Number"
+            keyboardType='numeric'
             onChangeText={(value) => handdleChange('phoneNumber', value)}
             onBlur={() => validateField('phoneNumber', phoneNumber)}
           />
-          {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> : null}
+          {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> :  <View style={{ marginTop: 18 }}></View>}
           <View style={styles.buttonSize}>
             <CustomButton
               title='Sign Up'
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     // position: 'absolute'
     alignSelf: 'flex-start',
-    marginLeft: 5,
+    marginLeft: 16
   },
 
 

@@ -18,17 +18,17 @@ const PaymentScreen = ({ navigation, route }) => {
   const handleBooking = async () => {
     try {
       let totalSeats = ((data.totalSeat ?? 0) + parseInt(numberOfSeat))
-      if (data.seat == totalSeats) {
-        await editStatus(id)
-      }
       const userId = await AsyncStorage.getItem('userId')
-      await seatBooking(id, userId, numberOfSeat)
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
         title: 'Success!',
         textBody: `Selected Seat Successfully`,
         button: 'OK',
-        onPressButton: () => {
+        onPressButton: async () => {
+          if (data.seat == totalSeats) {
+            await editStatus(id)
+          }
+          await seatBooking(id, userId, numberOfSeat)
           navigation.navigate('Navbar', { screen: 'BookingHistory' });
         },
       });
