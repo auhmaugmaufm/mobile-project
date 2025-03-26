@@ -246,7 +246,7 @@ app.get('/bookinghistory/:id', async (req, res) => {
 
 app.get('/boardingpass/:id/seatleft', async (req, res) => {
     const { id } = req.params
-    console.log('GET: ', id);
+    console.log('GET: boarding pass id', id);
     db.all(
         `SELECT CarType.seat, SUM(numberOfSeats) AS totalSeat FROM BoardingPass 
         LEFT JOIN BookingHistory ON BookingHistory.id_BoardingPass = BoardingPass.id
