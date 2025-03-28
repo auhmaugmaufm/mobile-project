@@ -1,4 +1,6 @@
-﻿# mobile-project
+﻿# Rodtuu Jabdek
+by React Native
+Mobile Application Design and Development ( 2025 ) 's Final Project
 
 
 <h1>Rodtuu Jabdek</h1>
